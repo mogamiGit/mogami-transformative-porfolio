@@ -9,7 +9,11 @@ services:
     ports:
       - "3000:3000"
     env_file:
+<<<<<<< HEAD
       - .env.devcontainer
+=======
+      - ../.env
+>>>>>>> 64ecdf2 (core: add devcontainer)
     command: sleep infinity
     network_mode: host
 
