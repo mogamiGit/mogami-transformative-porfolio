@@ -5,6 +5,60 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Dev Server",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Reset DB & Dev",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "kill $(lsof -t -i:3000) 2>/dev/null; rm -f mogami-transformative-porfolio.db && pnpm dev"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Migrate Create",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["payload", "migrate:create"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Migrate Run",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["payload", "migrate"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Linter: Check",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm lint",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Linter: Fix",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm lint:fix",
+      "cwd": "${workspaceFolder}"
+    },
+    {
       "name": "Next.js: debug full stack",
       "type": "node",
       "request": "launch",
