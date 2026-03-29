@@ -15,14 +15,11 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
-      "name": "Reset DB & Dev",
-      "type": "node",
+      "name": "Seed Admin",
+      "type": "node-terminal",
       "request": "launch",
-      "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "kill $(lsof -t -i:3000) 2>/dev/null; rm -f mogami-transformative-porfolio.db && pnpm dev"],
-      "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "skipFiles": ["<node_internals>/**"]
+      "command": "pnpm seed:admin",
+      "cwd": "${workspaceFolder}"
     },
     {
       "name": "Migrate Create",

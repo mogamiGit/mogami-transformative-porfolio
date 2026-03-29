@@ -15,6 +15,7 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation eslint . --fix",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "seed:admin": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed-admin.ts",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
@@ -23,9 +24,11 @@
   },
   "dependencies": {
     "@payloadcms/admin-bar": "3.80.0",
+    "@payloadcms/db-sqlite": "3.80.0",
     "@payloadcms/live-preview-react": "3.80.0",
     "@payloadcms/next": "3.80.0",
     "@payloadcms/plugin-form-builder": "3.80.0",
+    "@payloadcms/plugin-mcp": "^3.80.0",
     "@payloadcms/plugin-nested-docs": "3.80.0",
     "@payloadcms/plugin-redirects": "3.80.0",
     "@payloadcms/plugin-search": "3.80.0",
@@ -51,11 +54,10 @@
     "react-dom": "19.2.4",
     "react-hook-form": "7.71.1",
     "sharp": "0.34.2",
-    "tailwind-merge": "^3.4.0",
-    "@payloadcms/db-sqlite": "3.80.0"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/eslintrc": "^3.3.5",
     "@playwright/test": "1.58.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
