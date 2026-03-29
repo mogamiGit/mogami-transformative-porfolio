@@ -48,7 +48,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)
-    setThemeState(themeToSet)
+    setThemeState(themeToSet) // eslint-disable-line react-hooks/set-state-in-effect
   }, [])
 
   return <ThemeContext value={{ setTheme, theme }}>{children}</ThemeContext>

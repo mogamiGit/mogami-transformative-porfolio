@@ -44,7 +44,9 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-hubot-sans), var(--font-geist-sans);
+  --font-kalnia: var(--font-kalnia);
+  --font-hubot: var(--font-hubot-sans);
 }
 
 @layer utilities {
@@ -123,6 +125,10 @@
   --success: oklch(78% 0.08 200deg);
   --warning: oklch(89% 0.1 75deg);
   --error: oklch(75% 0.15 25deg);
+  --blue-violet: #4A68F0;
+  --yellow-chick: #FFD121;
+  --medium-blue: #222831;
+  --dark-blue: #03001c;
 }
 
 [data-theme='dark'] {
@@ -203,6 +209,10 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-blue-violet: var(--blue-violet);
+  --color-yellow-chick: var(--yellow-chick);
+  --color-medium-blue: var(--medium-blue);
+  --color-dark-blue: var(--dark-blue);
 }
 
 @layer base {
@@ -214,8 +224,17 @@
   }
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   opacity: 0;
+  scroll-behavior: smooth;
 }
 
 html[data-theme='dark'],

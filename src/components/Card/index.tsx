@@ -35,7 +35,7 @@ export const Card: React.FC<{
         'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
         className,
       )}
-      ref={card.ref}
+      ref={card.ref} // eslint-disable-line react-hooks/refs
     >
       <div className="relative w-full ">
         {!metaImage && <div className="">No image</div>}
@@ -71,7 +71,7 @@ export const Card: React.FC<{
         {titleToUse && (
           <div className="prose">
             <h3>
-              <Link className="not-prose" href={href} ref={link.ref}>
+              <Link className="not-prose" href={href} ref={link.ref}> {/* eslint-disable-line react-hooks/refs */}
                 {titleToUse}
               </Link>
             </h3>
