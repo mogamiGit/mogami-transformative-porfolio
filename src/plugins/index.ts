@@ -12,6 +12,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -24,6 +25,64 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
 }
 
 export const plugins: Plugin[] = [
+  mcpPlugin({
+    collections: {
+      pages: {
+        description: 'Static pages of the site',
+        enabled: {
+          find: true,
+          create: true,
+          update: true,
+          delete: false,
+        },
+      },
+      posts: {
+        description: 'Blog posts',
+        enabled: {
+          find: true,
+          create: true,
+          update: true,
+          delete: false,
+        },
+      },
+      categories: {
+        description: 'Blog categories',
+        enabled: {
+          find: true,
+          create: true,
+          update: true,
+          delete: false,
+        },
+      },
+      projects: {
+        description: 'Portfolio projects',
+        enabled: {
+          find: true,
+          create: true,
+          update: true,
+          delete: false,
+        },
+      },
+      experience: {
+        description: 'Work experience entries',
+        enabled: {
+          find: true,
+          create: true,
+          update: true,
+          delete: false,
+        },
+      },
+      skills: {
+        description: 'Skills and technologies',
+        enabled: {
+          find: true,
+          create: true,
+          update: true,
+          delete: false,
+        },
+      },
+    }
+  }),
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
