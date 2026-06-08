@@ -2,6 +2,9 @@
 const config = {
   theme: {
     extend: {
+      borderWidth: {
+        light: '0.5px',
+      },
       typography: () => ({
         DEFAULT: {
           css: [

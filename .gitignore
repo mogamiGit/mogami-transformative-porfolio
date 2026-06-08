@@ -29,3 +29,9 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Pencil Dev
+*.pen
+
+# Claude Code local settings
+.claude/

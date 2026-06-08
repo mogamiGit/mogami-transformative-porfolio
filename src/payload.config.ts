@@ -5,9 +5,12 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { Experience } from './collections/Experience'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { Projects } from './collections/Projects'
+import { Skills } from './collections/Skills'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -19,6 +22,16 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  bin: [
+    {
+      scriptPath: path.resolve(dirname, 'scripts/seed-admin.ts'),
+      key: 'seed:admin',
+    },
+    {
+      scriptPath: path.resolve(dirname, 'scripts/seed-data.ts'),
+      key: 'seed:data',
+    },
+  ],
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -62,7 +75,7 @@ export default buildConfig({
       url: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, Projects, Experience, Skills],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,
