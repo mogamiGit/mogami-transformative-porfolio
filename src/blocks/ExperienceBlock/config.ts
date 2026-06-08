@@ -5,8 +5,34 @@ export const ExperienceBlock: Block = {
   interfaceName: 'ExperienceBlockType',
   fields: [
     {
-      name: 'sectionTitle',
+      name: 'label',
       type: 'text',
+      defaultValue: 'type: timeline',
+      admin: {
+        description: 'Small label shown above title (e.g. "type: timeline")',
+      },
+    },
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      defaultValue: 'experience.log',
+      admin: {
+        description: 'Card title (e.g. "experience.log")',
+      },
+    },
+    {
+      name: 'experienceType',
+      type: 'select',
+      defaultValue: 'all',
+      options: [
+        { label: 'All', value: 'all' },
+        { label: 'Work', value: 'work' },
+        { label: 'Education', value: 'education' },
+      ],
+      admin: {
+        description: 'Filter experiences by type',
+      },
     },
   ],
   labels: {
