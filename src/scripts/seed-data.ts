@@ -1,10 +1,30 @@
 import type { SanitizedConfig } from 'payload'
 import payload from 'payload'
 
+const richText = (text: string) => ({
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'paragraph',
+        children: [{ type: 'text', text, version: 1 }],
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
+      },
+    ],
+    direction: 'ltr' as const,
+    format: '' as const,
+    indent: 0,
+    version: 1,
+  },
+})
+
 const projects = [
   {
     title: 'NexAuth',
-    description: 'Open-source authentication library for Node.js with support for OAuth2, JWT and passwordless flows. Designed to be framework-agnostic and easy to integrate.',
+    description: richText('Open-source authentication library for Node.js with support for OAuth2, JWT and passwordless flows. Designed to be framework-agnostic and easy to integrate.'),
     techStack: [{ name: 'TypeScript' }, { name: 'Node.js' }, { name: 'PostgreSQL' }, { name: 'Redis' }],
     tags: [{ tag: 'Open Source' }, { tag: 'Backend' }, { tag: 'Auth' }],
     buttons: [
@@ -19,7 +39,7 @@ const projects = [
   },
   {
     title: 'Orbitboard',
-    description: 'Real-time project management tool built for remote teams. Features kanban boards, time tracking, and Slack integration.',
+    description: richText('Real-time project management tool built for remote teams. Features kanban boards, time tracking, and Slack integration.'),
     techStack: [{ name: 'Next.js' }, { name: 'Prisma' }, { name: 'WebSockets' }, { name: 'Tailwind CSS' }],
     tags: [{ tag: 'SaaS' }, { tag: 'Full Stack' }, { tag: 'Real-time' }],
     buttons: [
@@ -33,7 +53,7 @@ const projects = [
   },
   {
     title: 'Lumen UI',
-    description: 'Component library for React with 60+ accessible components. Built on top of Radix UI with a custom design system and dark mode support.',
+    description: richText('Component library for React with 60+ accessible components. Built on top of Radix UI with a custom design system and dark mode support.'),
     techStack: [{ name: 'React' }, { name: 'TypeScript' }, { name: 'Storybook' }, { name: 'CSS Variables' }],
     tags: [{ tag: 'Open Source' }, { tag: 'Frontend' }, { tag: 'Design System' }],
     buttons: [
@@ -48,7 +68,7 @@ const projects = [
   },
   {
     title: 'Trackvault',
-    description: 'CLI tool for tracking development time across Git repositories. Automatically logs commits and generates weekly reports in CSV or JSON.',
+    description: richText('CLI tool for tracking development time across Git repositories. Automatically logs commits and generates weekly reports in CSV or JSON.'),
     techStack: [{ name: 'Go' }, { name: 'SQLite' }, { name: 'Git' }],
     tags: [{ tag: 'CLI' }, { tag: 'Open Source' }, { tag: 'Developer Tools' }],
     buttons: [
@@ -62,7 +82,7 @@ const projects = [
   },
   {
     title: 'Spectral API',
-    description: 'GraphQL API gateway with automatic schema stitching, rate limiting, and query cost analysis. Deployed on Cloudflare Workers for edge performance.',
+    description: richText('GraphQL API gateway with automatic schema stitching, rate limiting, and query cost analysis. Deployed on Cloudflare Workers for edge performance.'),
     techStack: [{ name: 'GraphQL' }, { name: 'Cloudflare Workers' }, { name: 'TypeScript' }, { name: 'Hono' }],
     tags: [{ tag: 'Backend' }, { tag: 'API' }, { tag: 'Edge' }],
     buttons: [
@@ -77,7 +97,7 @@ const projects = [
   },
   {
     title: 'Codebrief',
-    description: 'VS Code extension that generates plain-English summaries of code changes using AI. Integrates with GitHub PRs and writes draft descriptions automatically.',
+    description: richText('VS Code extension that generates plain-English summaries of code changes using AI. Integrates with GitHub PRs and writes draft descriptions automatically.'),
     techStack: [{ name: 'TypeScript' }, { name: 'VS Code API' }, { name: 'OpenAI' }, { name: 'GitHub API' }],
     tags: [{ tag: 'VS Code' }, { tag: 'AI' }, { tag: 'Developer Tools' }],
     buttons: [
@@ -105,7 +125,7 @@ export const script = async (config: SanitizedConfig) => {
       await payload.update({
         collection: 'projects',
         id: existing.docs[0].id,
-        data: project,
+        data: project as any,
       })
       payload.logger.info(`Updated project: ${project.title}`)
       continue
@@ -113,7 +133,7 @@ export const script = async (config: SanitizedConfig) => {
 
     await payload.create({
       collection: 'projects',
-      data: project,
+      data: project as any,
     })
 
     payload.logger.info(`Created project: ${project.title}`)
