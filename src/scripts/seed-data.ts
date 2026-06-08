@@ -194,7 +194,9 @@ export const script = async (config: SanitizedConfig) => {
       await payload.update({
         collection: 'projects',
         id: existing.docs[0].id,
-        data: project as Record<string, unknown>,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: project as any,
+        draft: false,
       })
       payload.logger.info(`Updated project: ${project.title}`)
       continue
@@ -202,7 +204,9 @@ export const script = async (config: SanitizedConfig) => {
 
     await payload.create({
       collection: 'projects',
-      data: project as Record<string, unknown>,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: project as any,
+      draft: false,
     })
 
     payload.logger.info(`Created project: ${project.title}`)
@@ -250,7 +254,7 @@ export const script = async (config: SanitizedConfig) => {
       },
       {
         blockType: 'experienceBlock',
-        label: 'type: timeline',
+        label: 'type: list',
         title: 'experience.log',
       },
       {
@@ -272,14 +276,18 @@ export const script = async (config: SanitizedConfig) => {
     await payload.update({
       collection: 'pages',
       id: existingHome.docs[0].id,
-      data: homePage as Record<string, unknown>,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: homePage as any,
+      draft: false,
       context: { disableRevalidate: true },
     })
     payload.logger.info('Updated home page with blocks')
   } else {
     await payload.create({
       collection: 'pages',
-      data: homePage as Record<string, unknown>,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: homePage as any,
+      draft: false,
       context: { disableRevalidate: true },
     })
     payload.logger.info('Created home page with blocks')
