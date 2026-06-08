@@ -9,8 +9,22 @@ export const script = async (config: SanitizedConfig) => {
     where: { email: { equals: process.env.SEED_ADMIN_EMAIL || 'admin@admin.com' } },
   })
 
+  const apiKey = process.env.PAYLOAD_MCP_API_KEY
+
   if (existing.totalDocs > 0) {
-    payload.logger.info('Admin user already exists, skipping.')
+    if (apiKey) {
+      await payload.update({
+        collection: 'users',
+        id: existing.docs[0].id,
+        data: {
+          enableAPIKey: true,
+          apiKey,
+        },
+      })
+      payload.logger.info('Admin user already exists. API key updated.')
+    } else {
+      payload.logger.info('Admin user already exists, skipping.')
+    }
     process.exit(0)
   }
 
@@ -20,9 +34,10 @@ export const script = async (config: SanitizedConfig) => {
       name: 'Admin',
       email: process.env.SEED_ADMIN_EMAIL || 'admin@admin.com',
       password: process.env.SEED_ADMIN_PASSWORD || 'admin1234',
+      ...(apiKey ? { enableAPIKey: true, apiKey } : {}),
     },
   })
 
-  payload.logger.info('Admin user created.')
+  payload.logger.info('Admin user created.' + (apiKey ? ' API key set.' : ''))
   process.exit(0)
 }

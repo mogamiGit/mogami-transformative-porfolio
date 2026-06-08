@@ -461,6 +461,9 @@ export interface User {
   name?: string | null;
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
@@ -866,7 +869,18 @@ export interface ProjectsBlockType {
  * via the `definition` "ExperienceBlockType".
  */
 export interface ExperienceBlockType {
-  sectionTitle?: string | null;
+  /**
+   * Small label shown above title (e.g. "type: timeline")
+   */
+  label?: string | null;
+  /**
+   * Card title (e.g. "experience.log")
+   */
+  title: string;
+  /**
+   * Filter experiences by type
+   */
+  experienceType?: ('all' | 'work' | 'education') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'experienceBlock';
@@ -1596,7 +1610,9 @@ export interface ProjectsBlockTypeSelect<T extends boolean = true> {
  * via the `definition` "ExperienceBlockType_select".
  */
 export interface ExperienceBlockTypeSelect<T extends boolean = true> {
-  sectionTitle?: T;
+  label?: T;
+  title?: T;
+  experienceType?: T;
   id?: T;
   blockName?: T;
 }
@@ -1791,6 +1807,9 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   updatedAt?: T;
   createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
   email?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
