@@ -2,7 +2,7 @@ import React from 'react'
 
 import type { AboutBlockType } from '@/payload-types'
 
-import RichText from '@/components/RichText'
+import RichText from '@/components/organisms/RichText'
 
 export const AboutBlockComponent: React.FC<AboutBlockType> = ({ sectionTitle, bio }) => {
   return (

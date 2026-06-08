@@ -11,7 +11,7 @@ import { ExperienceBlockComponent } from '@/blocks/ExperienceBlock/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { HighlightPointsBlockComponent } from '@/blocks/HighlightPointsBlock/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { PortfolioHeroBlock } from '@/blocks/PortfolioHero/Component'
+import { PortfolioHeroBlockComponent } from '@/blocks/PortfolioHero/Component'
 import { ProjectsBlockComponent } from '@/blocks/ProjectsBlock/Component'
 
 const blockComponents = {
@@ -24,7 +24,7 @@ const blockComponents = {
   formBlock: FormBlock,
   highlightPointsBlock: HighlightPointsBlockComponent,
   mediaBlock: MediaBlock,
-  portfolioHero: PortfolioHeroBlock,
+  portfolioHero: PortfolioHeroBlockComponent,
   projectsBlock: ProjectsBlockComponent,
 }
 

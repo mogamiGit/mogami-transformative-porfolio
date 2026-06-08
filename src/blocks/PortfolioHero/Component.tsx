@@ -2,9 +2,10 @@ import React from 'react'
 
 import type { PortfolioHeroBlock } from '@/payload-types'
 
-import RichText from '@/components/RichText'
+import RichText from '@/components/organisms/RichText'
+import { PortfolioHeroClient } from './Component.client'
 
-export const PortfolioHeroBlock: React.FC<PortfolioHeroBlock> = ({
+export const PortfolioHeroBlockComponent: React.FC<PortfolioHeroBlock> = ({
   tagText,
   tagEmoji,
   role,
@@ -22,6 +23,7 @@ export const PortfolioHeroBlock: React.FC<PortfolioHeroBlock> = ({
       {role && <p className="mb-2 text-muted-foreground">{role}</p>}
       <h1 className="text-4xl font-bold mb-6">{heading}</h1>
       {description && <RichText data={description} />}
+      <PortfolioHeroClient />
     </section>
   )
 }
