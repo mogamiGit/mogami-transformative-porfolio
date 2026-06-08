@@ -1,8 +1,8 @@
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import type { SanitizedConfig } from 'payload'
+import payload from 'payload'
 
-const seed = async () => {
-  const payload = await getPayload({ config })
+export const script = async (config: SanitizedConfig) => {
+  await payload.init({ config })
 
   const existing = await payload.find({
     collection: 'users',
@@ -10,7 +10,7 @@ const seed = async () => {
   })
 
   if (existing.totalDocs > 0) {
-    console.log('Admin user already exists, skipping.')
+    payload.logger.info('Admin user already exists, skipping.')
     process.exit(0)
   }
 
@@ -23,11 +23,6 @@ const seed = async () => {
     },
   })
 
-  console.log('Admin user created.')
+  payload.logger.info('Admin user created.')
   process.exit(0)
 }
-
-seed().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
