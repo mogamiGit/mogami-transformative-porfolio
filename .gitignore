@@ -32,3 +32,6 @@ node_modules/
 
 # Pencil Dev
 *.pen
+
+# Claude Code local settings
+.claude/
