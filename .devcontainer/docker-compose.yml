@@ -9,9 +9,8 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - .env.devcontainer
+      - ../.env
     command: sleep infinity
-    network_mode: host
 
 volumes:
   node_modules:

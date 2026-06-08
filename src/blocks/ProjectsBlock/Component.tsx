@@ -12,7 +12,7 @@ export const ProjectsBlockComponent: React.FC<ProjectsBlockType> = async ({
 
   const { docs: projects } = await payload.find({
     collection: 'projects',
-    sort: 'order',
+    sort: '-publishedAt',
     pagination: false,
     overrideAccess: true,
     ...(showFeaturedOnly ? { where: { featured: { equals: true } } } : {}),
