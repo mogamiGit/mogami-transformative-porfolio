@@ -112,8 +112,77 @@ const projects = [
   },
 ]
 
+const experiences = [
+  {
+    type: 'work' as const,
+    period: '2024 - today',
+    organization: 'Ironhack',
+    role: 'Lead Frontend Instructor',
+    description: 'Teaching modern web development with React, TypeScript and Next.js. Mentoring bootcamp students and designing curriculum.',
+    order: 1,
+  },
+  {
+    type: 'work' as const,
+    period: '2019 - 2024',
+    organization: 'Chailatte.CO',
+    role: 'Full Stack Developer',
+    description: 'Built and maintained e-commerce platforms and custom CMS solutions. Led migration from legacy PHP to Next.js stack.',
+    order: 2,
+  },
+  {
+    type: 'work' as const,
+    period: '2016 - 2019',
+    organization: 'ESKE',
+    role: 'Frontend Developer',
+    description: 'Developed responsive web applications and landing pages for agency clients. Implemented design systems and component libraries.',
+    order: 3,
+  },
+  {
+    type: 'education' as const,
+    period: '2023',
+    organization: 'Ironhack',
+    role: 'Web Development Bootcamp',
+    description: 'Intensive full-stack web development program covering JavaScript, React, Node.js and databases.',
+    order: 4,
+  },
+  {
+    type: 'education' as const,
+    period: '2015 - 2016',
+    organization: 'Universidad Complutense',
+    role: 'Computer Science',
+    description: 'Fundamentals of computer science, algorithms and data structures.',
+    order: 5,
+  },
+]
+
 export const script = async (config: SanitizedConfig) => {
   await payload.init({ config })
+
+  for (const exp of experiences) {
+    const existing = await payload.find({
+      collection: 'experience',
+      where: {
+        organization: { equals: exp.organization },
+        role: { equals: exp.role },
+      },
+    })
+
+    if (existing.totalDocs > 0) {
+      await payload.update({
+        collection: 'experience',
+        id: existing.docs[0].id,
+        data: exp,
+      })
+      payload.logger.info(`Updated experience: ${exp.role} @ ${exp.organization}`)
+      continue
+    }
+
+    await payload.create({
+      collection: 'experience',
+      data: exp,
+    })
+    payload.logger.info(`Created experience: ${exp.role} @ ${exp.organization}`)
+  }
 
   for (const project of projects) {
     const existing = await payload.find({
@@ -181,7 +250,8 @@ export const script = async (config: SanitizedConfig) => {
       },
       {
         blockType: 'experienceBlock',
-        sectionTitle: 'Experience',
+        label: 'type: timeline',
+        title: 'experience.log',
       },
       {
         blockType: 'contactBlock',
