@@ -240,6 +240,7 @@ export interface Page {
     | AboutBlockType
     | ContactBlockType
     | HighlightPointsBlockType
+    | SkillsBlockType
   )[];
   meta?: {
     title?: string | null;
@@ -940,6 +941,18 @@ export interface HighlightPointsBlockType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SkillsBlockType".
+ */
+export interface SkillsBlockType {
+  label?: string | null;
+  title: string;
+  category?: ('all' | 'languages' | 'frameworks' | 'tools') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'skillsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
 export interface Project {
@@ -1481,6 +1494,7 @@ export interface PagesSelect<T extends boolean = true> {
         aboutBlock?: T | AboutBlockTypeSelect<T>;
         contactBlock?: T | ContactBlockTypeSelect<T>;
         highlightPointsBlock?: T | HighlightPointsBlockTypeSelect<T>;
+        skillsBlock?: T | SkillsBlockTypeSelect<T>;
       };
   meta?:
     | T
@@ -1651,6 +1665,17 @@ export interface HighlightPointsBlockTypeSelect<T extends boolean = true> {
         subtitle?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SkillsBlockType_select".
+ */
+export interface SkillsBlockTypeSelect<T extends boolean = true> {
+  label?: T;
+  title?: T;
+  category?: T;
   id?: T;
   blockName?: T;
 }

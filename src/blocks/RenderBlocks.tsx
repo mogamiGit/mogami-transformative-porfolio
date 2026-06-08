@@ -13,6 +13,7 @@ import { HighlightPointsBlockComponent } from '@/blocks/HighlightPointsBlock/Com
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { PortfolioHeroBlockComponent } from '@/blocks/PortfolioHero/Component'
 import { ProjectsBlockComponent } from '@/blocks/ProjectsBlock/Component'
+import { SkillsBlockComponent } from '@/blocks/SkillsBlock/Component'
 
 const blockComponents = {
   aboutBlock: AboutBlockComponent,
@@ -26,6 +27,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   portfolioHero: PortfolioHeroBlockComponent,
   projectsBlock: ProjectsBlockComponent,
+  skillsBlock: SkillsBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{
