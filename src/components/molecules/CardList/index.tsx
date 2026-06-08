@@ -23,7 +23,7 @@ export const CardList: React.FC<CardListProps> = ({ label, title, items, variant
       <CardTitle>{title}</CardTitle>
       <div className="flex flex-col gap-1.5">
         {items.map((item) => (
-          <span key={item.id} className={cn('text-card-foreground text-[10px]')}>
+          <span key={item.id} className={cn('text-card-foreground text-[10px] opacity-60')}>
             {item.prefix && `[${item.prefix}] `}
             {item.text}
           </span>
