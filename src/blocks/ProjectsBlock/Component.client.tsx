@@ -44,7 +44,7 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
       {/* Grid view */}
       {view === 'grid' && (
         <div
-          className="grid grid-cols-4 gap-x-2 gap-y-3 px-3 py-4 border border-border"
+          className="grid grid-cols-4 gap-x-2 gap-y-3 px-3 py-4 border border-card-border"
           style={{
             background: `repeating-linear-gradient(
               0deg,
