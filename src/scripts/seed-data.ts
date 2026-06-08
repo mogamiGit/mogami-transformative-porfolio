@@ -125,7 +125,7 @@ export const script = async (config: SanitizedConfig) => {
       await payload.update({
         collection: 'projects',
         id: existing.docs[0].id,
-        data: project as any,
+        data: project as Record<string, unknown>,
       })
       payload.logger.info(`Updated project: ${project.title}`)
       continue
@@ -133,10 +133,86 @@ export const script = async (config: SanitizedConfig) => {
 
     await payload.create({
       collection: 'projects',
-      data: project as any,
+      data: project as Record<string, unknown>,
     })
 
     payload.logger.info(`Created project: ${project.title}`)
+  }
+
+  // Seed home page with blocks
+  const homePage = {
+    title: 'Home',
+    slug: 'home',
+    _status: 'published',
+    hero: {
+      type: 'none',
+    },
+    layout: [
+      {
+        blockType: 'portfolioHero',
+        tagText: 'Available for work',
+        tagEmoji: '👋',
+        role: 'Full Stack Developer',
+        heading: 'Building digital experiences that matter',
+        description: richText(
+          'I design and develop modern web applications with a focus on performance, accessibility, and great user experience.',
+        ),
+      },
+      {
+        blockType: 'highlightPointsBlock',
+        points: [
+          { title: '+5', subtitle: 'Years of experience' },
+          { title: '+20', subtitle: 'Projects delivered' },
+          { title: '+10', subtitle: 'Happy clients' },
+        ],
+      },
+      {
+        blockType: 'aboutBlock',
+        sectionTitle: 'About me',
+        bio: richText(
+          'Passionate developer with experience building scalable web applications. I specialize in React, Next.js, and Node.js ecosystems. I love open source and contributing to the developer community.',
+        ),
+      },
+      {
+        blockType: 'projectsBlock',
+        sectionTitle: 'Featured Projects',
+        showFeaturedOnly: true,
+        limit: 6,
+      },
+      {
+        blockType: 'experienceBlock',
+        sectionTitle: 'Experience',
+      },
+      {
+        blockType: 'contactBlock',
+        sectionTitle: 'Get in touch',
+        email: 'hello@example.com',
+        linkedinLabel: 'LinkedIn',
+        linkedinUrl: 'https://linkedin.com',
+      },
+    ],
+  }
+
+  const existingHome = await payload.find({
+    collection: 'pages',
+    where: { slug: { equals: 'home' } },
+  })
+
+  if (existingHome.totalDocs > 0) {
+    await payload.update({
+      collection: 'pages',
+      id: existingHome.docs[0].id,
+      data: homePage as Record<string, unknown>,
+      context: { disableRevalidate: true },
+    })
+    payload.logger.info('Updated home page with blocks')
+  } else {
+    await payload.create({
+      collection: 'pages',
+      data: homePage as Record<string, unknown>,
+      context: { disableRevalidate: true },
+    })
+    payload.logger.info('Created home page with blocks')
   }
 
   payload.logger.info('Seed data complete.')
