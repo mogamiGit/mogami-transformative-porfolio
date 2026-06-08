@@ -7,7 +7,8 @@ import localFont from 'next/font/local'
 import { Kalnia } from 'next/font/google'
 import React from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
+import { AdminBar } from '@/components/molecules/AdminBar'
+import { BackgroundGlow } from '@/components/atoms/BackgroundGlow'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
@@ -45,6 +46,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
+        <BackgroundGlow />
         <Providers>
           <AdminBar
             adminBarProps={{

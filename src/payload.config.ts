@@ -22,6 +22,16 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  bin: [
+    {
+      scriptPath: path.resolve(dirname, 'scripts/seed-admin.ts'),
+      key: 'seed:admin',
+    },
+    {
+      scriptPath: path.resolve(dirname, 'scripts/seed-data.ts'),
+      key: 'seed:data',
+    },
+  ],
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.

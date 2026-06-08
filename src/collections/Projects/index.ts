@@ -14,7 +14,7 @@ export const Projects: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['title', 'featured', 'order', 'publishedAt'],
+    defaultColumns: ['title', 'featured', 'publishedAt'],
     useAsTitle: 'title',
   },
   fields: [
@@ -22,10 +22,6 @@ export const Projects: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
-    },
-    {
-      name: 'subtitle',
-      type: 'text',
     },
     {
       name: 'description',
@@ -71,9 +67,14 @@ export const Projects: CollectionConfig = {
         {
           name: 'icon',
           type: 'select',
-          options: ['github', 'external', 'figma'],
+          options: ['external', 'pencil'],
         },
       ],
+    },
+    {
+      name: 'repositoryLink',
+      type: 'text',
+      required: false,
     },
     {
       name: 'mobileImage',
@@ -86,103 +87,8 @@ export const Projects: CollectionConfig = {
       relationTo: 'media',
     },
     {
-      name: 'headerImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    {
-      name: 'year',
-      type: 'text',
-    },
-    {
       name: 'client',
       type: 'text',
-    },
-    {
-      name: 'detailDescription',
-      type: 'richText',
-      editor: lexicalEditor({}),
-    },
-    {
-      name: 'highlights',
-      type: 'array',
-      fields: [
-        {
-          name: 'emoji',
-          type: 'text',
-        },
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      name: 'carousel',
-      type: 'array',
-      fields: [
-        {
-          name: 'media',
-          type: 'upload',
-          relationTo: 'media',
-        },
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'mediaType',
-          type: 'select',
-          options: ['image', 'video'],
-        },
-        {
-          name: 'videoUrl',
-          type: 'text',
-          admin: {
-            description: 'URL to video file (for videos not uploaded to media)',
-          },
-        },
-      ],
-    },
-    {
-      name: 'externalUrl',
-      type: 'text',
-      admin: {
-        description: 'External URL for the project (e.g., live site)',
-      },
-    },
-    {
-      name: 'meta',
-      type: 'group',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-        },
-      ],
-    },
-    {
-      name: 'featured',
-      type: 'checkbox',
-      defaultValue: false,
-    },
-    {
-      name: 'order',
-      type: 'number',
     },
     {
       name: 'hasDetailPage',
@@ -191,6 +97,11 @@ export const Projects: CollectionConfig = {
       admin: {
         description: 'Enable detail page at /projects/[slug]',
       },
+    },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      defaultValue: false,
     },
     {
       name: 'publishedAt',

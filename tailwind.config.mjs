@@ -2,10 +2,6 @@
 const config = {
   theme: {
     extend: {
-      fontFamily: {
-        kalnia: ['var(--font-kalnia)', 'Georgia', 'serif'],
-        hubot: ['var(--font-hubot-sans)', 'Helvetica', 'sans-serif'],
-      },
       borderWidth: {
         light: '0.5px',
       },

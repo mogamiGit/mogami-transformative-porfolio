@@ -931,7 +931,6 @@ export interface HighlightPointsBlockType {
 export interface Project {
   id: number;
   title: string;
-  subtitle?: string | null;
   description?: {
     root: {
       type: string;
@@ -963,65 +962,19 @@ export interface Project {
     | {
         text: string;
         link: string;
-        icon?: ('github' | 'external' | 'figma') | null;
+        icon?: ('external' | 'pencil') | null;
         id?: string | null;
       }[]
     | null;
+  repositoryLink?: string | null;
   mobileImage?: (number | null) | Media;
   desktopImage?: (number | null) | Media;
-  headerImage?: (number | null) | Media;
-  year?: string | null;
   client?: string | null;
-  detailDescription?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  highlights?:
-    | {
-        emoji?: string | null;
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  carousel?:
-    | {
-        media?: (number | null) | Media;
-        title?: string | null;
-        mediaType?: ('image' | 'video') | null;
-        /**
-         * URL to video file (for videos not uploaded to media)
-         */
-        videoUrl?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * External URL for the project (e.g., live site)
-   */
-  externalUrl?: string | null;
-  meta?: {
-    title?: string | null;
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  featured?: boolean | null;
-  order?: number | null;
   /**
    * Enable detail page at /projects/[slug]
    */
   hasDetailPage?: boolean | null;
+  featured?: boolean | null;
   publishedAt?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -1859,7 +1812,6 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
-  subtitle?: T;
   description?: T;
   techStack?:
     | T
@@ -1881,40 +1833,12 @@ export interface ProjectsSelect<T extends boolean = true> {
         icon?: T;
         id?: T;
       };
+  repositoryLink?: T;
   mobileImage?: T;
   desktopImage?: T;
-  headerImage?: T;
-  year?: T;
   client?: T;
-  detailDescription?: T;
-  highlights?:
-    | T
-    | {
-        emoji?: T;
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  carousel?:
-    | T
-    | {
-        media?: T;
-        title?: T;
-        mediaType?: T;
-        videoUrl?: T;
-        id?: T;
-      };
-  externalUrl?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        description?: T;
-      };
-  featured?: T;
-  order?: T;
   hasDetailPage?: T;
+  featured?: T;
   publishedAt?: T;
   generateSlug?: T;
   slug?: T;
