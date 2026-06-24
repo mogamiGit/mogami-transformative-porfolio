@@ -12,13 +12,15 @@ type Props = {
 
 export const SkillsList: React.FC<Props> = ({ label, title, items }) => {
   return (
-    <CardList
-      label={label ?? undefined}
-      title={title ?? 'skills.log'}
-      items={items.map((item) => ({
-        id: item.id,
-        text: item.name,
-      }))}
-    />
+    <section className="container">
+      <CardList
+        label={label ?? undefined}
+        title={title ?? 'skills.log'}
+        items={items.map((item) => ({
+          id: item.id,
+          text: item.name,
+        }))}
+      />
+    </section>
   )
 }
