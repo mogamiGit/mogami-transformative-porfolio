@@ -3,10 +3,16 @@ import type { Project } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { AnimatePresence, motion } from 'motion/react'
 import RichText from '@/components/organisms/RichText'
+import { RadarChart } from '@/components/atoms/RadarChart/RadarChart.client'
+import { getProjectRadarData } from '@/utilities/projectRadar'
+import { ModalSection } from '@/components/atoms/ModalSection'
+import { ProjectModalHeader } from './ProjectModalHeader'
+import { ProjectModalButtons } from './ProjectModalButtons'
+import { ProjectModalMeta } from './ProjectModalMeta'
 
 type Phase = 'pulse' | 'expand' | 'ready'
 
-export const ProjectDrawer: React.FC<{ project: Project | null; onClose: () => void }> = ({
+export const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> = ({
   project,
   onClose,
 }) => {
@@ -148,23 +154,10 @@ export const ProjectDrawer: React.FC<{ project: Project | null; onClose: () => v
                 animate={{ opacity: phase === 'ready' ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Modal header */}
-                <div className="flex items-center gap-3 px-4 py-2.5 border-b border-border bg-card text-xs shrink-0">
-                  <span className="text-primary">◐</span>
-                  <div className="text-card-foreground flex-1 opacity-70">
-                    ~/projects/
-                    <strong className="text-primary font-medium">
-                      {project.slug ?? project.title?.toLowerCase().replace(/\s+/g, '-')}
-                    </strong>
-                    /case-study.md
-                  </div>
-                  <button
-                    onClick={onClose}
-                    className="w-6 h-6 flex items-center justify-center border border-border text-sm text-card-foreground bg-transparent cursor-pointer font-mono hover:border-primary hover:text-primary transition-colors duration-150"
-                  >
-                    −
-                  </button>
-                </div>
+                <ProjectModalHeader
+                  slug={project.slug ?? project.title?.toLowerCase().replace(/\s+/g, '-')}
+                  onClose={onClose}
+                />
 
                 {/* Modal body */}
                 <div className="flex flex-col flex-1 overflow-y-auto px-8 py-6 project-drawer-scroll gap-3.5">
@@ -183,97 +176,58 @@ export const ProjectDrawer: React.FC<{ project: Project | null; onClose: () => v
 
                   {/* Overview */}
                   {project.overview && (
-                    <RichText data={project.overview} enableGutter={false} enableProse={false} className="text-sm text-card-foreground opacity-70 leading-relaxed" />
+                    <RichText
+                      data={project.overview}
+                      enableGutter={false}
+                      enableProse={false}
+                      className="text-sm text-card-foreground opacity-70 leading-relaxed"
+                    />
                   )}
 
-                  {/* Tech stack */}
-                  {project.techStack && project.techStack.length > 0 && (
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-lg font-medium text-foreground">Stack</h3>
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.techStack.map((t) => (
-                          <span
-                            key={t.id}
-                            className="inline-flex items-center px-2 py-0.5 border border-primary/40 text-[11px] tracking-[0.06em] uppercase text-primary bg-primary/8"
-                          >
-                            {t.name}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Problem */}
-                  {project.problem && (
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-lg font-medium text-foreground">Problem</h3>
-                      <RichText data={project.problem} enableGutter={false} enableProse={false} className="text-sm text-card-foreground opacity-70 leading-relaxed" />
-                    </div>
-                  )}
-
-                  {/* What I Built */}
-                  {project.whatIBuilt && (
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-lg font-medium text-foreground">What I Built</h3>
-                      <RichText data={project.whatIBuilt} enableGutter={false} enableProse={false} className="text-sm text-card-foreground opacity-70 leading-relaxed" />
-                    </div>
-                  )}
-
-                  {/* Technical Decisions */}
-                  {project.technicalDecisions && (
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-lg font-medium text-foreground">Technical Decisions</h3>
-                      <RichText data={project.technicalDecisions} enableGutter={false} enableProse={false} className="text-sm text-card-foreground opacity-70 leading-relaxed" />
-                    </div>
-                  )}
-
-                  {/* Constraints */}
-                  {project.constraints && (
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-lg font-medium text-foreground">Constraints</h3>
-                      <RichText data={project.constraints} enableGutter={false} enableProse={false} className="text-sm text-card-foreground opacity-70 leading-relaxed" />
-                    </div>
-                  )}
-
-                  {/* Outcome */}
-                  {project.outcome && (
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-lg font-medium text-foreground">Outcome</h3>
-                      <RichText data={project.outcome} enableGutter={false} enableProse={false} className="text-sm text-card-foreground opacity-70 leading-relaxed" />
-                    </div>
-                  )}
-
-                  {/* Buttons */}
-                  {project.buttons && project.buttons.length > 0 && (
-                    <div className="mt-6 pt-4 border-t border-dashed border-border flex gap-2 flex-wrap">
-                      {project.buttons.map((btn) => (
-                        <a
-                          key={btn.id}
-                          href={btn.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-primary text-xs text-primary bg-primary/8 no-underline font-mono cursor-pointer"
-                        >
-                          <span className="text-card-foreground opacity-50">$ </span>
-                          {btn.text}
-                          {btn.icon === 'external' && ' ↗'}
-                          {btn.icon === 'pencil' && ' ⎇'}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Meta */}
-                  {(project.client || project.publishedAt) && (
-                    <div className="mt-6 pt-4 border-t border-dashed border-border text-xs text-card-foreground opacity-50 flex flex-wrap gap-x-4 gap-y-1">
-                      {project.client && (
-                        <span><span className="text-primary">$</span> client: {project.client}</span>
+                  <div className="flex gap-12">
+                    <div className="flex flex-col gap-4">
+                      {/* Tech stack */}
+                      {project.techStack && project.techStack.length > 0 && (
+                        <div className="flex flex-col gap-2">
+                          <h3 className="text-lg font-medium text-foreground">Stack</h3>
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.techStack.map((t) => (
+                              <span
+                                key={t.id}
+                                className="inline-flex items-center px-2 py-0.5 border border-primary/40 text-[11px] tracking-[0.06em] uppercase text-primary bg-primary/8"
+                              >
+                                {t.name}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       )}
-                      {project.publishedAt && (
-                        <span><span className="text-primary">$</span> date: {new Date(project.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</span>
-                      )}
+                      {/* Project Radar */}
+                      {(() => {
+                        const radarData = getProjectRadarData(project.techStack)
+                        if (!radarData) return null
+                        return <RadarChart data={radarData} size={260} />
+                      })()}
                     </div>
-                  )}
+
+                    <div className="flex-1 flex flex-col gap-6.5">
+                      <ModalSection title="Problem" data={project.problem} />
+                      <ModalSection title="What I Built" data={project.whatIBuilt} />
+                      <ModalSection title="Technical Decisions" data={project.technicalDecisions} />
+                      <ModalSection title="Constraints" data={project.constraints} />
+                      <ModalSection title="Outcome" data={project.outcome} />
+                    </div>
+                  </div>
+
+                  <ProjectModalButtons
+                    githubRepo={project.githubRepo}
+                    buttons={project.buttons}
+                  />
+
+                  <ProjectModalMeta
+                    client={project.client}
+                    publishedAt={project.publishedAt}
+                  />
                 </div>
               </motion.div>
             </motion.div>

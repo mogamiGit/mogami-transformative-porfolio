@@ -4,7 +4,7 @@ import React, { useState, useCallback } from 'react'
 import type { Project } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { FolderIcon } from './components/FolderIcon'
-import { ProjectDrawer } from './components/ProjectDrawer'
+import { ProjectModal } from './components/ProjectModal'
 import { ViewToggle } from '@/components/organisms/ViewToggle'
 
 type Props = {
@@ -136,7 +136,7 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
 
       </div>{/* end animate wrapper */}
 
-      <ProjectDrawer project={openProject} onClose={handleClose} />
+      <ProjectModal project={openProject} onClose={handleClose} />
     </>
   )
 }
