@@ -229,3 +229,27 @@ html[data-theme='light'] {
   opacity: initial;
 }
 
+/* Project drawer scrollbar */
+@layer base {
+  .project-drawer-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.75 0.18 175 / 0.4) transparent;
+  }
+
+  .project-drawer-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .project-drawer-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .project-drawer-scroll::-webkit-scrollbar-thumb {
+    background: oklch(0.75 0.18 175 / 0.4);
+  }
+
+  .project-drawer-scroll::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.75 0.18 175 / 0.7);
+  }
+}
+
