@@ -20,7 +20,9 @@ Atomic Design pattern under `src/components/`:
 - `molecules/` — composed atoms (Media, Card, Link, Pagination, PageRange, AdminBar)
 - `organisms/` — complex sections (CollectionArchive, RichText, ViewToggle)
 - `ui/` — shadcn/ui primitives, do not move
-- Payload-specific (root level): BeforeDashboard, BeforeLogin, LivePreviewListener, PayloadRedirects
+
+Payload CMS admin components live in `src/payload/components/`:
+- BeforeDashboard, BeforeLogin, LivePreviewListener, PayloadRedirects
 
 ## Conventions
 
