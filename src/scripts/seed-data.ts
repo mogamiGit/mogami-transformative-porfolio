@@ -33,9 +33,9 @@ const projects = [
     techStack: [{ name: 'TypeScript' }, { name: 'Node.js' }, { name: 'PostgreSQL' }, { name: 'Redis' }],
     tags: [{ tag: 'Open Source' }, { tag: 'Backend' }, { tag: 'Auth' }],
     buttons: [
-      { text: 'GitHub', link: 'https://github.com', icon: 'external' as const },
       { text: 'Docs', link: 'https://nexauth.dev', icon: 'external' as const },
     ],
+    githubRepo: 'mogamiGit/nexauth',
     client: 'Personal',
     status: 'maintained',
     featured: true,
@@ -54,6 +54,7 @@ const projects = [
     buttons: [
       { text: 'Live demo', link: 'https://orbitboard.app', icon: 'external' as const },
     ],
+    githubRepo: 'mogamiGit/orbitboard',
     client: 'Freelance',
     status: 'active',
     featured: true,
@@ -70,9 +71,9 @@ const projects = [
     techStack: [{ name: 'React' }, { name: 'TypeScript' }, { name: 'Storybook' }, { name: 'CSS Variables' }],
     tags: [{ tag: 'Open Source' }, { tag: 'Frontend' }, { tag: 'Design System' }],
     buttons: [
-      { text: 'GitHub', link: 'https://github.com', icon: 'external' as const },
       { text: 'Storybook', link: 'https://lumen-ui.dev', icon: 'external' as const },
     ],
+    githubRepo: 'mogamiGit/lumen-ui',
     client: 'Personal',
     status: 'maintained',
     featured: false,
@@ -88,9 +89,8 @@ const projects = [
     outcome: richText('800+ downloads on GitHub. Used personally to bill 1,200+ hours across 8 client projects.'),
     techStack: [{ name: 'Go' }, { name: 'SQLite' }, { name: 'Git' }],
     tags: [{ tag: 'CLI' }, { tag: 'Open Source' }, { tag: 'Developer Tools' }],
-    buttons: [
-      { text: 'GitHub', link: 'https://github.com', icon: 'external' as const },
-    ],
+    buttons: [],
+    githubRepo: 'mogamiGit/trackvault',
     client: 'Personal',
     status: 'archived',
     featured: false,
@@ -107,9 +107,9 @@ const projects = [
     techStack: [{ name: 'GraphQL' }, { name: 'Cloudflare Workers' }, { name: 'TypeScript' }, { name: 'Hono' }],
     tags: [{ tag: 'Backend' }, { tag: 'API' }, { tag: 'Edge' }],
     buttons: [
-      { text: 'GitHub', link: 'https://github.com', icon: 'external' as const },
       { text: 'Live', link: 'https://spectral-api.dev', icon: 'external' as const },
     ],
+    githubRepo: 'mogamiGit/spectral-api',
     client: 'Freelance',
     status: 'completed',
     featured: true,
@@ -127,8 +127,8 @@ const projects = [
     tags: [{ tag: 'VS Code' }, { tag: 'AI' }, { tag: 'Developer Tools' }],
     buttons: [
       { text: 'Marketplace', link: 'https://marketplace.visualstudio.com', icon: 'external' as const },
-      { text: 'GitHub', link: 'https://github.com', icon: 'external' as const },
     ],
+    githubRepo: 'mogamiGit/codebrief',
     client: 'Personal',
     status: 'active',
     featured: false,
@@ -275,6 +275,13 @@ export const script = async (config: SanitizedConfig) => {
         sectionTitle: 'Featured Projects',
         showFeaturedOnly: true,
         limit: 6,
+      },
+      {
+        blockType: 'githubRadarBlock',
+        label: 'type: github-radar',
+        title: 'skills.radar',
+        maxSkills: 8,
+        showMetrics: false,
       },
       {
         blockType: 'experienceBlock',

@@ -115,6 +115,13 @@ export const Projects: CollectionConfig = {
       ],
     },
     {
+      name: 'githubRepo',
+      type: 'text',
+      admin: {
+        description: 'GitHub repo path, e.g. "mogamiGit/repo-name"',
+      },
+    },
+    {
       name: 'client',
       type: 'text',
     },

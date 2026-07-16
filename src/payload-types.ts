@@ -241,6 +241,7 @@ export interface Page {
     | ContactBlockType
     | HighlightPointsBlockType
     | SkillsBlockType
+    | GitHubRadarBlockType
   )[];
   meta?: {
     title?: string | null;
@@ -953,6 +954,25 @@ export interface SkillsBlockType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GitHubRadarBlockType".
+ */
+export interface GitHubRadarBlockType {
+  label?: string | null;
+  title: string;
+  /**
+   * Number of top skills to display (4-12)
+   */
+  maxSkills?: number | null;
+  /**
+   * Show repo count and byte stats below chart
+   */
+  showMetrics?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'githubRadarBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
 export interface Project {
@@ -1086,6 +1106,10 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
+  /**
+   * GitHub repo path, e.g. "mogamiGit/repo-name"
+   */
+  githubRepo?: string | null;
   client?: string | null;
   status?: ('active' | 'completed' | 'maintained' | 'archived' | 'planned') | null;
   featured?: boolean | null;
@@ -1582,6 +1606,7 @@ export interface PagesSelect<T extends boolean = true> {
         contactBlock?: T | ContactBlockTypeSelect<T>;
         highlightPointsBlock?: T | HighlightPointsBlockTypeSelect<T>;
         skillsBlock?: T | SkillsBlockTypeSelect<T>;
+        githubRadarBlock?: T | GitHubRadarBlockTypeSelect<T>;
       };
   meta?:
     | T
@@ -1763,6 +1788,18 @@ export interface SkillsBlockTypeSelect<T extends boolean = true> {
   label?: T;
   title?: T;
   category?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GitHubRadarBlockType_select".
+ */
+export interface GitHubRadarBlockTypeSelect<T extends boolean = true> {
+  label?: T;
+  title?: T;
+  maxSkills?: T;
+  showMetrics?: T;
   id?: T;
   blockName?: T;
 }
@@ -1969,6 +2006,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         icon?: T;
         id?: T;
       };
+  githubRepo?: T;
   client?: T;
   status?: T;
   featured?: T;
