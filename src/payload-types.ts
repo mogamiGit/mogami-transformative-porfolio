@@ -958,7 +958,100 @@ export interface SkillsBlockType {
 export interface Project {
   id: number;
   title: string;
-  description?: {
+  /**
+   * Brief summary of the project — what it is and why it matters
+   */
+  overview?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * What problem does this project solve?
+   */
+  problem?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Features and functionality implemented
+   */
+  whatIBuilt?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Why specific technologies/patterns were chosen
+   */
+  technicalDecisions?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Limitations and restrictions the project had to work within
+   */
+  constraints?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Results, impact, metrics
+   */
+  outcome?: {
     root: {
       type: string;
       children: {
@@ -993,14 +1086,8 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
-  repositoryLink?: string | null;
-  mobileImage?: (number | null) | Media;
-  desktopImage?: (number | null) | Media;
   client?: string | null;
-  /**
-   * Enable detail page at /projects/[slug]
-   */
-  hasDetailPage?: boolean | null;
+  status?: ('active' | 'completed' | 'maintained' | 'archived' | 'planned') | null;
   featured?: boolean | null;
   publishedAt?: string | null;
   /**
@@ -1856,7 +1943,12 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
-  description?: T;
+  overview?: T;
+  problem?: T;
+  whatIBuilt?: T;
+  technicalDecisions?: T;
+  constraints?: T;
+  outcome?: T;
   techStack?:
     | T
     | {
@@ -1877,11 +1969,8 @@ export interface ProjectsSelect<T extends boolean = true> {
         icon?: T;
         id?: T;
       };
-  repositoryLink?: T;
-  mobileImage?: T;
-  desktopImage?: T;
   client?: T;
-  hasDetailPage?: T;
+  status?: T;
   featured?: T;
   publishedAt?: T;
   generateSlug?: T;
