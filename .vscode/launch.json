@@ -15,10 +15,10 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
-      "name": "Seed Admin",
+      "name": "Seed All",
       "type": "node-terminal",
       "request": "launch",
-      "command": "pnpm seed:admin",
+      "command": "pnpm seed:admin && pnpm seed:data",
       "cwd": "${workspaceFolder}"
     },
     {
