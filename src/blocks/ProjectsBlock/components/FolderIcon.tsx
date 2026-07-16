@@ -17,7 +17,7 @@ export const FolderIcon: React.FC<{ hovered: boolean }> = ({ hovered }) => {
         style={{
           position: 'absolute',
           top: 0,
-          left: 8,
+          left: 0,
           width: '42%',
           height: 14,
           background: hovered ? 'oklch(0.26 0.07 195)' : 'oklch(0.2 0.06 195)',

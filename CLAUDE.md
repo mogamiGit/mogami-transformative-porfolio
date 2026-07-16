@@ -27,3 +27,8 @@ Atomic Design pattern under `src/components/`:
 - Use `@/components/atoms/...`, `@/components/molecules/...`, `@/components/organisms/...` import paths
 - Client components suffix: `Component.client.tsx`
 - Blocks live in `src/blocks/`
+
+## Git Commits
+
+- No commit description/body — subject line only
+- No Co-Authored-By footer

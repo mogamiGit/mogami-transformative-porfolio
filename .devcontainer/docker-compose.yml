@@ -10,6 +10,15 @@ services:
       - "3000:3000"
     env_file:
       - ../.env
+    environment:
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - NEXT_PRIVATE_NO_CACHE=1
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 4G
     command: sleep infinity
 
 volumes:

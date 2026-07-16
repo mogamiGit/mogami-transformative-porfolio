@@ -17,8 +17,7 @@
         "dbaeumer.vscode-eslint",
         "bradlc.vscode-tailwindcss",
         "ms-azuretools.vscode-docker",
-        "unifiedjs.vscode-mdx",
-        "ms-vscode.vscode-typescript-next"
+        "unifiedjs.vscode-mdx"
       ],
       "settings": {
         "editor.formatOnSave": true,

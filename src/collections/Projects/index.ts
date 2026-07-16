@@ -24,9 +24,52 @@ export const Projects: CollectionConfig = {
       required: true,
     },
     {
-      name: 'description',
+      name: 'overview',
       type: 'richText',
       editor: lexicalEditor({}),
+      admin: {
+        description: 'Brief summary of the project — what it is and why it matters',
+      },
+    },
+    {
+      name: 'problem',
+      type: 'richText',
+      editor: lexicalEditor({}),
+      admin: {
+        description: 'What problem does this project solve?',
+      },
+    },
+    {
+      name: 'whatIBuilt',
+      type: 'richText',
+      editor: lexicalEditor({}),
+      admin: {
+        description: 'Features and functionality implemented',
+      },
+    },
+    {
+      name: 'technicalDecisions',
+      type: 'richText',
+      editor: lexicalEditor({}),
+      admin: {
+        description: 'Why specific technologies/patterns were chosen',
+      },
+    },
+    {
+      name: 'constraints',
+      type: 'richText',
+      editor: lexicalEditor({}),
+      admin: {
+        description: 'Limitations and restrictions the project had to work within',
+      },
+    },
+    {
+      name: 'outcome',
+      type: 'richText',
+      editor: lexicalEditor({}),
+      admin: {
+        description: 'Results, impact, metrics',
+      },
     },
     {
       name: 'techStack',
@@ -72,31 +115,20 @@ export const Projects: CollectionConfig = {
       ],
     },
     {
-      name: 'repositoryLink',
-      type: 'text',
-      required: false,
-    },
-    {
-      name: 'mobileImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    {
-      name: 'desktopImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    {
       name: 'client',
       type: 'text',
     },
     {
-      name: 'hasDetailPage',
-      type: 'checkbox',
-      defaultValue: false,
-      admin: {
-        description: 'Enable detail page at /projects/[slug]',
-      },
+      name: 'status',
+      type: 'select',
+      defaultValue: 'completed',
+      options: [
+        { label: 'Active', value: 'active' },
+        { label: 'Completed', value: 'completed' },
+        { label: 'Maintained', value: 'maintained' },
+        { label: 'Archived', value: 'archived' },
+        { label: 'Planned', value: 'planned' },
+      ],
     },
     {
       name: 'featured',

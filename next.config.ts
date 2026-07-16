@@ -32,8 +32,16 @@ const nextConfig: NextConfig = {
       '.mjs': ['.mts', '.mjs'],
     }
 
+    webpackConfig.watchOptions = {
+      ...webpackConfig.watchOptions,
+      poll: 2000,
+      aggregateTimeout: 300,
+      ignored: ['**/node_modules/**', '**/.next/**', '**/media/**', '**/.git/**'],
+    }
+
     return webpackConfig
   },
+  allowedDevOrigins: ['192.168.117.2'],
   reactStrictMode: true,
   redirects,
   turbopack: {
