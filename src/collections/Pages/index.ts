@@ -13,7 +13,7 @@ import { HighlightPointsBlock } from '../../blocks/HighlightPointsBlock/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { PortfolioHero } from '../../blocks/PortfolioHero/config'
 import { ProjectsBlock } from '../../blocks/ProjectsBlock/config'
-import { GitHubRadarBlock } from '../../blocks/GitHubRadarBlock/config'
+import { GitHubStatsBlock } from '../../blocks/GitHubStatsBlock/config'
 import { SkillsBlock } from '../../blocks/SkillsBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -93,7 +93,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ContactBlock,
                 HighlightPointsBlock,
                 SkillsBlock,
-                GitHubRadarBlock,
+                GitHubStatsBlock,
               ],
               required: true,
               admin: {

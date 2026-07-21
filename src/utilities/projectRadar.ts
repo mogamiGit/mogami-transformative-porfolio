@@ -1,4 +1,4 @@
-import type { RadarDataPoint } from '@/components/atoms/RadarChart/RadarChart.client'
+import type { RadarDataPoint } from '@/blocks/GitHubStatsBlock/components/RadarChart.client'
 
 const SKILL_SCORES: Record<string, number> = {
   TypeScript: 95, JavaScript: 85, React: 90, 'Next.js': 88, 'Node.js': 82,

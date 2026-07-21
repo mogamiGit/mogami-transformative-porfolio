@@ -3,7 +3,7 @@ import type { Project } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { AnimatePresence, motion } from 'motion/react'
 import RichText from '@/components/organisms/RichText'
-import { RadarChart } from '@/components/atoms/RadarChart/RadarChart.client'
+import { RadarChart } from '@/blocks/GitHubStatsBlock/components/RadarChart.client'
 import { getProjectRadarData } from '@/utilities/projectRadar'
 import { ModalSection } from '@/components/atoms/ModalSection'
 import { ProjectModalHeader } from './ProjectModalHeader'
@@ -206,7 +206,7 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
                       {(() => {
                         const radarData = getProjectRadarData(project.techStack)
                         if (!radarData) return null
-                        return <RadarChart data={radarData} size={260} />
+                        return <RadarChart data={radarData} />
                       })()}
                     </div>
 
@@ -219,15 +219,9 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
                     </div>
                   </div>
 
-                  <ProjectModalButtons
-                    githubRepo={project.githubRepo}
-                    buttons={project.buttons}
-                  />
+                  <ProjectModalButtons githubRepo={project.githubRepo} buttons={project.buttons} />
 
-                  <ProjectModalMeta
-                    client={project.client}
-                    publishedAt={project.publishedAt}
-                  />
+                  <ProjectModalMeta client={project.client} publishedAt={project.publishedAt} />
                 </div>
               </motion.div>
             </motion.div>

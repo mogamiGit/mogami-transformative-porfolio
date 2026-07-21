@@ -9,7 +9,7 @@ import { ContactBlockComponent } from '@/blocks/ContactBlock/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { ExperienceBlockComponent } from '@/blocks/ExperienceBlock/Component'
 import { FormBlock } from '@/blocks/Form/Component'
-import { GitHubRadarBlockComponent } from '@/blocks/GitHubRadarBlock/Component'
+import { GitHubStatsBlockComponent } from '@/blocks/GitHubStatsBlock/Component'
 import { HighlightPointsBlockComponent } from '@/blocks/HighlightPointsBlock/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { PortfolioHeroBlockComponent } from '@/blocks/PortfolioHero/Component'
@@ -24,7 +24,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   experienceBlock: ExperienceBlockComponent,
   formBlock: FormBlock,
-  githubRadarBlock: GitHubRadarBlockComponent,
+  githubStatsBlock: GitHubStatsBlockComponent,
   highlightPointsBlock: HighlightPointsBlockComponent,
   mediaBlock: MediaBlock,
   portfolioHero: PortfolioHeroBlockComponent,
