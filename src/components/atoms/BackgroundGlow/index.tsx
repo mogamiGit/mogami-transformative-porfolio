@@ -11,8 +11,16 @@ const vertexShader = `
   }
 `
 
+// highp is required: the fract(sin(...) * 43758.5) hash collapses into flat
+// bands under mediump, which some drivers (notably Firefox on Linux/Mesa)
+// honour literally as 16-bit float.
 const fragmentShader = `
+  #ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+  #else
   precision mediump float;
+  #endif
+
   uniform float uTime;
   uniform vec2 uMouse;
   varying vec2 vUv;
@@ -70,22 +78,60 @@ const fragmentShader = `
   }
 `
 
+const contextAttributes: WebGLContextAttributes = {
+  alpha: false,
+  antialias: false,
+  depth: false,
+  stencil: false,
+  powerPreference: 'low-power',
+  // Firefox refuses the context on some setups when this defaults to true
+  failIfMajorPerformanceCaveat: false,
+}
+
+function getContext(canvas: HTMLCanvasElement) {
+  return (canvas.getContext('webgl', contextAttributes) ||
+    canvas.getContext('experimental-webgl', contextAttributes)) as WebGLRenderingContext | null
+}
+
+function compileShader(gl: WebGLRenderingContext, type: number, source: string) {
+  const shader = gl.createShader(type)
+  if (!shader) return null
+
+  gl.shaderSource(shader, source)
+  gl.compileShader(shader)
+
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    console.error('[BackgroundGlow] shader compile failed:', gl.getShaderInfoLog(shader))
+    gl.deleteShader(shader)
+    return null
+  }
+
+  return shader
+}
+
 function initGL(canvas: HTMLCanvasElement) {
-  const gl = canvas.getContext('webgl')
-  if (!gl) return null
+  const gl = getContext(canvas)
+  if (!gl) {
+    console.warn('[BackgroundGlow] WebGL unavailable, falling back to static background')
+    return null
+  }
 
-  const vert = gl.createShader(gl.VERTEX_SHADER)!
-  gl.shaderSource(vert, vertexShader)
-  gl.compileShader(vert)
+  const vert = compileShader(gl, gl.VERTEX_SHADER, vertexShader)
+  const frag = compileShader(gl, gl.FRAGMENT_SHADER, fragmentShader)
+  if (!vert || !frag) return null
 
-  const frag = gl.createShader(gl.FRAGMENT_SHADER)!
-  gl.shaderSource(frag, fragmentShader)
-  gl.compileShader(frag)
+  const program = gl.createProgram()
+  if (!program) return null
 
-  const program = gl.createProgram()!
   gl.attachShader(program, vert)
   gl.attachShader(program, frag)
   gl.linkProgram(program)
+
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error('[BackgroundGlow] program link failed:', gl.getProgramInfoLog(program))
+    return null
+  }
+
   gl.useProgram(program)
 
   // Full-screen quad
@@ -112,19 +158,16 @@ export const BackgroundGlow: React.FC = () => {
     const canvas = canvasRef.current
     if (!canvas) return
 
+    let rafId = 0
+    let disposed = false
+
     const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      // Match the backing store to the device pixel ratio, otherwise the noise
+      // reads as a blurry smear on HiDPI screens.
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.floor(window.innerWidth * dpr)
+      canvas.height = Math.floor(window.innerHeight * dpr)
     }
-    resize()
-    window.addEventListener('resize', resize)
-
-    const ctx = initGL(canvas)
-    if (!ctx) return
-
-    const { gl, uTime, uMouse } = ctx
-    let rafId: number
-    const start = performance.now()
 
     const onMouseMove = (e: MouseEvent) => {
       targetMouseRef.current = {
@@ -132,26 +175,55 @@ export const BackgroundGlow: React.FC = () => {
         y: 1 - e.clientY / window.innerHeight,
       }
     }
+
+    const start = () => {
+      if (disposed) return
+
+      resize()
+
+      const ctx = initGL(canvas)
+      if (!ctx) return
+
+      const { gl, uTime, uMouse } = ctx
+      const startedAt = performance.now()
+
+      const render = () => {
+        const t = (performance.now() - startedAt) / 1000
+
+        // Lerp mouse
+        mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * 0.05
+        mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * 0.05
+
+        gl.viewport(0, 0, canvas.width, canvas.height)
+        gl.uniform1f(uTime, t)
+        gl.uniform2f(uMouse, mouseRef.current.x, mouseRef.current.y)
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+
+        rafId = requestAnimationFrame(render)
+      }
+      render()
+    }
+
+    // Firefox drops the context more eagerly than Chromium (tab backgrounding,
+    // GPU process restarts); without this the canvas stays frozen for good.
+    const onContextLost = (e: Event) => {
+      e.preventDefault()
+      cancelAnimationFrame(rafId)
+    }
+    const onContextRestored = () => start()
+
+    canvas.addEventListener('webglcontextlost', onContextLost)
+    canvas.addEventListener('webglcontextrestored', onContextRestored)
+    window.addEventListener('resize', resize)
     window.addEventListener('mousemove', onMouseMove)
 
-    const render = () => {
-      const t = (performance.now() - start) / 1000
-
-      // Lerp mouse
-      mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * 0.05
-      mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * 0.05
-
-      gl.viewport(0, 0, canvas.width, canvas.height)
-      gl.uniform1f(uTime, t)
-      gl.uniform2f(uMouse, mouseRef.current.x, mouseRef.current.y)
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-
-      rafId = requestAnimationFrame(render)
-    }
-    render()
+    start()
 
     return () => {
+      disposed = true
       cancelAnimationFrame(rafId)
+      canvas.removeEventListener('webglcontextlost', onContextLost)
+      canvas.removeEventListener('webglcontextrestored', onContextRestored)
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMouseMove)
     }
@@ -161,7 +233,11 @@ export const BackgroundGlow: React.FC = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="fixed inset-0 -z-10 pointer-events-none w-full h-full"
+      className="fixed inset-0 -z-10 pointer-events-none block w-full h-full"
+      style={{
+        // Visible if WebGL never initialises, hidden behind the canvas otherwise.
+        background: 'radial-gradient(circle at 50% 40%, #0a2422 0%, #050505 100%)',
+      }}
     />
   )
 }
