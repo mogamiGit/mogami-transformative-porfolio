@@ -1,17 +1,26 @@
 <!--
 SYNC IMPACT REPORT
-Version change: 1.1.0 → 1.1.1
-Rationale: PATCH. Wording only — the rationale under Principle II was restated
-to match what the alias rule actually buys (visible dependency direction and a
-greppable consumer list) instead of claiming the tier is the sole signal of a
-file's blast radius, which the repository's own fan-in counts do not support.
-No requirement changed.
+Version change: 1.1.1 → 1.2.0
+Rationale: MINOR. New materially expanded guidance — the Development Workflow
+section gains a "Codebase Search and Exploration" subsection making the
+`code-index` MCP server the required tool for locating files, symbols, and
+usages in this repository, with native shell search demoted to a declared
+fallback. No existing requirement was removed or redefined.
 
 Prior history:
+  1.1.1 — PATCH. Principle II rationale reworded; no requirement changed.
   1.1.0 — MINOR. Persistence recorded as provisional rather than a settled
     constraint; seed rule expanded from one entry point to all three.
   1.0.0 (2026-09-05) — initial ratification from the unresolved template
     scaffold.
+
+Added sections (1.2.0):
+  Development Workflow → Codebase Search and Exploration
+
+Modified sections (1.2.0):
+  Principle II. Atomic Design Component Boundaries — rationale now refers to an
+    index-wide symbol search rather than "a single grep", to stay consistent
+    with the new search rule. The rule itself is unchanged.
 
 Modified sections (1.1.1):
   Principle II. Atomic Design Component Boundaries — rationale reworded; the
@@ -68,8 +77,8 @@ Components requiring browser APIs or hooks MUST carry the `.client.tsx` suffix. 
 components belong in `src/payload/components/`, not in the atomic tiers.
 
 Rationale: the alias makes a component's tier visible at every point of use, which keeps the
-dependency direction (atoms ← molecules ← organisms) enforceable and lets a single grep enumerate
-every consumer before a change. Relative traversal across tiers hides both.
+dependency direction (atoms ← molecules ← organisms) enforceable and lets a single index-wide
+search enumerate every consumer before a change. Relative traversal across tiers hides both.
 
 ### III. Type Safety Is Enforced, Not Advisory
 
@@ -151,6 +160,37 @@ rendered site together, which is precisely where this stack's failures occur.
   There is deliberately no combined "seed all" command. If one is introduced, it MUST compose the
   existing scripts rather than duplicate their logic, and this list MUST be amended.
 
+### Codebase Search and Exploration
+
+The `code-index` MCP server is the required entry point for locating anything in this repository.
+Before editing, extending, or removing code, the relevant files and symbols MUST be located
+through it rather than by shell traversal:
+
+- `find_files` to locate files by glob or filename.
+- `search_code_advanced` to find usages, identifiers, and text across the repository.
+- `get_file_summary` and `get_symbol_body` to inspect a single function, type, or class.
+
+Native shell search and traversal — `find`, `grep`/`rg`, `ls -R`, `cat` for discovery — MUST NOT
+be the first move. They are a declared fallback, permitted only when the index genuinely cannot
+answer the query (for example searching untracked build output, git history, or files outside the
+indexed project root), and the change or response that relies on one SHOULD say which limitation
+forced it. This restricts exploration only; shell commands remain unrestricted inside scripts,
+tooling, and `package.json` where they are part of the program rather than a way of reading it.
+
+Whole files MUST NOT be read to confirm a single method signature, type, or import — request the
+symbol. Reading a file in full is appropriate when the change actually spans it.
+
+The index MUST be treated as state, not as ground truth. After files are added, renamed, moved, or
+deleted, `refresh_index` MUST be run before trusting a subsequent search, and a result that
+contradicts the working tree MUST be re-verified against the file before it is acted on.
+
+Rationale: this repository's structure is its main source of ambiguity — four component tiers,
+generated `payload-types`, blocks, collections, and globals all contain similarly named symbols.
+An indexed symbol lookup answers "where is this actually defined and who consumes it" in one step,
+where recursive text search returns generated duplicates and near-matches that invite edits to the
+wrong tier or to a regenerated file. The fallback exists because an index that is stale or blind
+to a path is worse than no index if it is trusted blindly.
+
 ## Governance
 
 This constitution supersedes conflicting conventions in ad-hoc documentation, prior habit, or
@@ -168,4 +208,4 @@ or accompanied by an explicit, written justification for the exception — and a
 exception is evidence the principle needs amending, not repeated waiving. Runtime development
 guidance for agents lives in `CLAUDE.md`.
 
-**Version**: 1.1.1 | **Ratified**: 2026-09-05 | **Last Amended**: 2026-09-05
+**Version**: 1.2.0 | **Ratified**: 2026-09-05 | **Last Amended**: 2026-09-16
