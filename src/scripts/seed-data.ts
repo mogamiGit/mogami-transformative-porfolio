@@ -354,6 +354,8 @@ export const script = async (config: SanitizedConfig) => {
       },
       {
         blockType: 'highlightPointsBlock',
+        label: 'type: metrics',
+        title: 'highlights.log',
         points: [
           { title: '+5', subtitle: 'Years of experience' },
           { title: '+20', subtitle: 'Projects delivered' },

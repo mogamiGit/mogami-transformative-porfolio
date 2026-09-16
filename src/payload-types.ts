@@ -931,6 +931,14 @@ export interface ContactBlockType {
  * via the `definition` "HighlightPointsBlockType".
  */
 export interface HighlightPointsBlockType {
+  /**
+   * Small label shown above title (e.g. "type: metrics")
+   */
+  label?: string | null;
+  /**
+   * Section heading (e.g. "highlights.log")
+   */
+  title?: string | null;
   points: {
     title: string;
     subtitle: string;
@@ -1774,6 +1782,8 @@ export interface ContactBlockTypeSelect<T extends boolean = true> {
  * via the `definition` "HighlightPointsBlockType_select".
  */
 export interface HighlightPointsBlockTypeSelect<T extends boolean = true> {
+  label?: T;
+  title?: T;
   points?:
     | T
     | {
