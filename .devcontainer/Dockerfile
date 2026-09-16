@@ -1,7 +1,11 @@
-FROM node:22-alpine
+# Debian-based: Playwright publishes no browser builds for musl, so Alpine
+# cannot run the e2e suite.
+FROM node:22-bookworm-slim
 
 # System tools
-RUN apk add --no-cache git bash curl
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      git curl ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
 
 # Claude CLI
 RUN curl -fsSL https://claude.ai/install.sh | bash
