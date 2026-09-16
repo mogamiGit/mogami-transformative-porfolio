@@ -30,7 +30,7 @@
       }
     }
   },
-  "postCreateCommand": "pnpm install",
+  "postCreateCommand": "pnpm install && pnpm exec playwright install --with-deps chromium",
   "postStartCommand": "echo '✅ Dev container ready. Run: pnpm dev'",
   "remoteEnv": {
     "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"

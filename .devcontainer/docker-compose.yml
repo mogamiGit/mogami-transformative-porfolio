@@ -19,6 +19,8 @@ services:
         limits:
           cpus: '1.5'
           memory: 4G
+    # Chromium needs more than Docker's default 64 MB of shared memory.
+    shm_size: '1gb'
     command: sleep infinity
 
 volumes:
