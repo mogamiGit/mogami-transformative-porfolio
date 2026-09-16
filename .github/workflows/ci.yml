@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+# A second push to the same branch cancels the run still in flight.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # SQLite file, thrown away with the runner.
+  DATABASE_URL: file:./ci.db
+  PAYLOAD_SECRET: ci-not-a-real-secret
+  NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+  CRON_SECRET: ci-not-a-real-secret
+  PREVIEW_SECRET: ci-not-a-real-secret
+  SEED_ADMIN_EMAIL: ci@example.com
+  SEED_ADMIN_PASSWORD: ci-not-a-real-password
+
+jobs:
+  # Cheap and fast: runs on every push and every PR.
+  checks:
+    name: Lint and integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Generated types are in sync
+        run: |
+          pnpm generate:types
+          git diff --exit-code src/payload-types.ts
+
+      - name: Unit and integration tests
+        run: pnpm test:int
+
+  # Expensive: PRs only, so pushes to a branch stay cheap.
+  e2e:
+    name: E2E
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Boots Payload, which pushes the schema into the fresh SQLite file.
+      - name: Seed
+        run: |
+          pnpm seed:admin
+          pnpm seed:data
+
+      - name: Playwright
+        run: pnpm test:e2e
+
+      - name: Upload report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
