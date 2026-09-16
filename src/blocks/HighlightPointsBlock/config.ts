@@ -5,6 +5,20 @@ export const HighlightPointsBlock: Block = {
   interfaceName: 'HighlightPointsBlockType',
   fields: [
     {
+      name: 'label',
+      type: 'text',
+      admin: {
+        description: 'Small label shown above title (e.g. "type: metrics")',
+      },
+    },
+    {
+      name: 'title',
+      type: 'text',
+      admin: {
+        description: 'Section heading (e.g. "highlights.log")',
+      },
+    },
+    {
       name: 'points',
       type: 'array',
       required: true,

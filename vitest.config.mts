@@ -7,6 +7,14 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
-    include: ['tests/int/**/*.int.spec.ts'],
+    include: [
+      // Integration: boots Payload and talks to the database.
+      'tests/int/**/*.int.spec.ts',
+      // Component: renders a single component in isolation, no database.
+      'tests/unit/**/*.unit.spec.{ts,tsx}',
+    ],
+    // Every integration spec boots Payload against the same SQLite file. Running
+    // spec files in parallel makes the second one fail with SQLITE_BUSY.
+    fileParallelism: false,
   },
 })
