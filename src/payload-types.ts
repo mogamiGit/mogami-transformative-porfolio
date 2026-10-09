@@ -908,6 +908,15 @@ export interface AboutBlockType {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Short steps shown as a looping sequence next to the bio, e.g. learn → design → repeat
+   */
+  mantra?:
+    | {
+        step: string;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutBlock';
@@ -1762,6 +1771,12 @@ export interface ExperienceBlockTypeSelect<T extends boolean = true> {
 export interface AboutBlockTypeSelect<T extends boolean = true> {
   sectionTitle?: T;
   bio?: T;
+  mantra?:
+    | T
+    | {
+        step?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
