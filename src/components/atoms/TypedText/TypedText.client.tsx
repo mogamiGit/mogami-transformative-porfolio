@@ -47,7 +47,9 @@ export const TypedText: React.FC<TypedTextProps> = ({ text, speed = 45, classNam
       <span aria-hidden="true">
         {text.slice(0, shown)}
         <span className="relative">
-          {typing && <span className="absolute left-0 text-primary animate-blink">▍</span>}
+          {typing && (
+            <span className="absolute left-0 text-accent-foreground animate-blink">▍</span>
+          )}
         </span>
         <span className="invisible">{text.slice(shown)}</span>
       </span>

@@ -56,6 +56,100 @@
   }
 }
 
+/*
+ * Type scale. Every portfolio component picks one of these roles instead of
+ * combining font, size and weight classes ad hoc.
+ *   display  Kalnia   page and modal titles
+ *   title    Kalnia   titles inside a section
+ *   heading  Kalnia   item names in lists
+ *   lead     sans     intro paragraphs
+ *   body     sans     running text
+ *   body-sm  sans     secondary text
+ *   eyebrow  mono     section names
+ *   command  mono     terminal-style card headers
+ *   mono     mono     file names and inline code-like text
+ *   label    mono     counters, dates and annotations
+ *   figure   mono     big numbers (size set per use)
+ */
+@utility type-display {
+  font-family: var(--font-kalnia);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+@utility type-title {
+  font-family: var(--font-kalnia);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.2;
+}
+
+@utility type-heading {
+  font-family: var(--font-kalnia);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+@utility type-lead {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+  line-height: 1.6;
+}
+
+@utility type-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.8;
+}
+
+@utility type-body-sm {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@utility type-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@utility type-command {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+@utility type-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+}
+
+@utility type-figure {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
 @utility container {
   width: 100%;
   margin-inline: auto;

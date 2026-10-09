@@ -18,23 +18,23 @@ export const PortfolioHeroBlockComponent: React.FC<PortfolioHeroBlock> = ({
     <section className="container py-24">
       {(tagText || tagEmoji) && (
         <Reveal>
-          <p className="mb-4 text-base">
-            {tagEmoji && <span className="mr-2">{tagEmoji}</span>}
+          <p className="mb-6 inline-flex items-center gap-2 border border-accent-foreground/60 px-3 py-1 type-label text-accent-foreground">
+            {tagEmoji && <span>{tagEmoji}</span>}
             {tagText}
           </p>
         </Reveal>
       )}
       {role && (
-        <p className="mb-2 text-muted-foreground font-mono">
+        <p className="mb-3 type-mono text-muted-foreground">
           <TypedText text={role} speed={35} />
         </p>
       )}
       <Reveal delay={0.15}>
-        <h1 className="text-4xl font-bold mb-6">
+        <h1 className="type-display text-foreground mb-6">
           {heading}
           <span
             aria-hidden="true"
-            className="ml-1 text-primary animate-blink motion-reduce:animate-none"
+            className="ml-1 text-accent-foreground animate-blink motion-reduce:animate-none"
           >
             _
           </span>
@@ -42,7 +42,12 @@ export const PortfolioHeroBlockComponent: React.FC<PortfolioHeroBlock> = ({
       </Reveal>
       {description && (
         <Reveal delay={0.3}>
-          <RichText data={description} />
+          <RichText
+            data={description}
+            enableGutter={false}
+            enableProse={false}
+            className="max-w-3xl mb-8 type-lead text-foreground opacity-80"
+          />
         </Reveal>
       )}
       <Reveal delay={0.45}>
