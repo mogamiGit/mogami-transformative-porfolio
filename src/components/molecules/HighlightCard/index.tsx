@@ -22,14 +22,19 @@ export type HighlightCardProps = {
  */
 export const HighlightCard: React.FC<HighlightCardProps> = ({ figure, label, className }) => {
   return (
-    <Card variant="highlight" className={cn(
+    <Card
+      variant="highlight"
+      className={cn(
         'flex-col-reverse gap-1.5 transition-transform duration-200 hover:-translate-y-1',
         className,
-      )}>
+      )}
+    >
       <dt className="text-card-foreground text-[13px] opacity-60">{label}</dt>
-      <dd className="text-primary text-3xl font-bold m-0">
-        <CountUp value={figure} />
-      </dd>
+      <CountUp
+        as="dd"
+        className="text-primary text-3xl font-bold m-0 tabular-nums"
+        value={figure}
+      />
     </Card>
   )
 }
