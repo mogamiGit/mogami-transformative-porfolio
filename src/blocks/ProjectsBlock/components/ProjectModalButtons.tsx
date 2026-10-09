@@ -13,7 +13,7 @@ export const ProjectModalButtons: React.FC<ProjectModalButtonsProps> = ({
   if ((!buttons || buttons.length === 0) && !githubRepo) return null
 
   return (
-    <div className="mt-6 pt-4 border-t border-dashed border-border flex gap-2 flex-wrap">
+    <div className="flex gap-3 flex-wrap pt-2">
       {githubRepo && (
         <a
           href={`https://github.com/${githubRepo}`}

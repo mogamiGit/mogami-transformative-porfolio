@@ -3,16 +3,26 @@ import React from 'react'
 type ProjectModalMetaProps = {
   client?: string | null
   publishedAt?: string | null
+  status?: string | null
 }
 
-export const ProjectModalMeta: React.FC<ProjectModalMetaProps> = ({ client, publishedAt }) => {
-  if (!client && !publishedAt) return null
+export const ProjectModalMeta: React.FC<ProjectModalMetaProps> = ({
+  client,
+  publishedAt,
+  status,
+}) => {
+  if (!client && !publishedAt && !status) return null
 
   return (
-    <div className="mt-6 pt-4 border-t border-dashed border-border text-sm text-card-foreground opacity-50 flex flex-wrap gap-x-4 gap-y-1">
+    <div className="font-mono text-sm text-card-foreground opacity-60 flex flex-wrap gap-x-8 gap-y-2">
       {client && (
         <span>
           <span className="text-primary">$</span> client: {client}
+        </span>
+      )}
+      {status && (
+        <span>
+          <span className="text-primary">$</span> status: {status}
         </span>
       )}
       {publishedAt && (

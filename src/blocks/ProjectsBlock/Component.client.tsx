@@ -21,118 +21,116 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
   return (
     <>
       <div className="flex items-end justify-between gap-6 mb-6 flex-wrap">
-        <h2
-          className="font-kalnia text-foreground leading-none tracking-tight font-normal"
-          style={{ fontSize: 'clamp(32px, 5vw, 56px)' }}
-        >
+        <h2 className="type-display text-foreground m-0">
           Selected{' '}
-          <em className="text-primary not-italic" style={{ fontStyle: 'italic' }}>work</em>.
+          <em className="text-primary not-italic" style={{ fontStyle: 'italic' }}>
+            work
+          </em>
+          .
         </h2>
         <ViewToggle view={view} onViewChange={setView} command="$ ls ~/mogami/projects" />
       </div>
 
       <div key={view} className="animate-in fade-in duration-200">
-
-      {view === 'grid' && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-1 pt-10">
-          {projects.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => setOpenProject(p)}
-              onMouseEnter={() => setHovered(p.id)}
-              onMouseLeave={() => setHovered(null)}
-              className="flex flex-col items-center gap-2 py-1 bg-transparent border-none cursor-pointer text-center w-full font-mono"
-            >
-              <FolderIcon hovered={hovered === p.id} />
+        {view === 'grid' && (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-1 pt-10">
+            {projects.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => setOpenProject(p)}
+                onMouseEnter={() => setHovered(p.id)}
+                onMouseLeave={() => setHovered(null)}
+                className="flex flex-col items-center gap-2 py-1 bg-transparent border-none cursor-pointer text-center w-full font-mono"
+              >
+                <FolderIcon hovered={hovered === p.id} />
                 <div
                   className={cn(
-                    'text-base font-medium transition-colors duration-150',
+                    'mt-4 type-mono transition-colors duration-150',
                     hovered === p.id ? 'text-primary' : 'text-foreground',
                   )}
                 >
                   {p.slug ?? p.title.toLowerCase().replace(/\s+/g, '-')}/
                 </div>
-                <div className="flex items-center justify-center gap-1.5 text-[13px] text-card-foreground opacity-50 tracking-[0.06em]">
+                <div className="flex items-center justify-center gap-1.5 type-label text-card-foreground opacity-50 tracking-[0.06em]">
                   {p.tags?.[0] && <span>{p.tags[0].tag.toLowerCase()}</span>}
                 </div>
                 <div
                   className={cn(
-                    'text-xs text-primary tracking-[0.04em] transition-all duration-160 ease-in-out',
+                    'text-xs text-accent-foreground tracking-[0.04em] transition-all duration-160 ease-in-out',
                     hovered === p.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-0.5',
                   )}
                 >
-                  {'$ open ./'}{p.slug ?? p.title.toLowerCase().replace(/\s+/g, '-')}
+                  {'$ open ./'}
+                  {p.slug ?? p.title.toLowerCase().replace(/\s+/g, '-')}
                 </div>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {view === 'list' && (
-        <div className="border border-border font-mono">
-          <div
-            className="grid gap-3 px-4 py-2 border-b border-border text-[13px] text-card-foreground opacity-50 tracking-widest uppercase"
-            style={{
-              gridTemplateColumns: '110px 1fr 140px 80px 80px 24px',
-              background: 'oklch(0.14 0.04 195)',
-            }}
-          >
-            <span>permission</span>
-            <span>name</span>
-            <span>type</span>
-            <span>published</span>
-            <span>status</span>
-            <span />
+              </button>
+            ))}
           </div>
-          {projects.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => setOpenProject(p)}
-              onMouseEnter={() => setHovered(p.id)}
-              onMouseLeave={() => setHovered(null)}
-              className={cn(
-                'grid gap-3 px-4 py-2.5 border-b border-border items-center cursor-pointer text-left w-full font-mono transition-colors duration-120 ease-in-out',
-                hovered === p.id ? 'bg-primary/6' : 'bg-transparent',
-              )}
-              style={{ gridTemplateColumns: '110px 1fr 140px 80px 80px 24px' }}
+        )}
+
+        {view === 'list' && (
+          <div className="border border-border font-mono">
+            <div
+              className="grid gap-3 px-4 py-2 border-b border-border type-label text-card-foreground opacity-50 tracking-widest uppercase"
+              style={{
+                gridTemplateColumns: '110px 1fr 140px 80px 80px 24px',
+                background: 'oklch(0.14 0.04 195)',
+              }}
             >
-              <span className="text-sm text-card-foreground opacity-40">drwxr-xr-x</span>
-              <span className="flex items-baseline gap-1.5">
-                <span className="text-primary text-sm">▸</span>
+              <span>permission</span>
+              <span>name</span>
+              <span>type</span>
+              <span>published</span>
+              <span>status</span>
+              <span />
+            </div>
+            {projects.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => setOpenProject(p)}
+                onMouseEnter={() => setHovered(p.id)}
+                onMouseLeave={() => setHovered(null)}
+                className={cn(
+                  'grid gap-3 px-4 py-2.5 border-b border-border items-center cursor-pointer text-left w-full font-mono transition-colors duration-120 ease-in-out',
+                  hovered === p.id ? 'bg-primary/6' : 'bg-transparent',
+                )}
+                style={{ gridTemplateColumns: '110px 1fr 140px 80px 80px 24px' }}
+              >
+                <span className="text-sm text-card-foreground opacity-40">drwxr-xr-x</span>
+                <span className="flex items-baseline gap-1.5">
+                  <span className="text-primary text-sm">▸</span>
+                  <span
+                    className={cn(
+                      'text-base transition-colors duration-120 ease-in-out',
+                      hovered === p.id ? 'text-primary' : 'text-foreground',
+                    )}
+                  >
+                    {p.title}
+                  </span>
+                </span>
+                <span className="text-sm text-card-foreground opacity-50">
+                  {p.tags?.[0]?.tag.toLowerCase() ?? '—'}
+                </span>
+                <span className="text-sm text-card-foreground opacity-40">
+                  {p.publishedAt ? new Date(p.publishedAt).getFullYear() : '—'}
+                </span>
+                <span className="text-sm text-card-foreground opacity-40">{p.status ?? '—'}</span>
                 <span
                   className={cn(
-                    'text-base transition-colors duration-120 ease-in-out',
-                    hovered === p.id ? 'text-primary' : 'text-foreground',
+                    'transition-all duration-120 ease-in-out',
+                    hovered === p.id
+                      ? 'text-primary translate-x-0.75 opacity-100'
+                      : 'text-card-foreground translate-x-0 opacity-40',
                   )}
                 >
-                  {p.title}
+                  →
                 </span>
-              </span>
-              <span className="text-sm text-card-foreground opacity-50">
-                {p.tags?.[0]?.tag.toLowerCase() ?? '—'}
-              </span>
-              <span className="text-sm text-card-foreground opacity-40">
-                {p.publishedAt ? new Date(p.publishedAt).getFullYear() : '—'}
-              </span>
-              <span className="text-sm text-card-foreground opacity-40">
-                {p.status ?? '—'}
-              </span>
-              <span
-                className={cn(
-                  'transition-all duration-120 ease-in-out',
-                  hovered === p.id
-                    ? 'text-primary translate-x-0.75 opacity-100'
-                    : 'text-card-foreground translate-x-0 opacity-40',
-                )}
-              >
-                →
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
-
-      </div>{/* end animate wrapper */}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+      {/* end animate wrapper */}
 
       <ProjectModal project={openProject} onClose={handleClose} />
     </>
