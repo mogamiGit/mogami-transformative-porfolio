@@ -4,6 +4,7 @@ import React from 'react'
 import { MotionConfig, motion, type Variants } from 'motion/react'
 import type { Skill } from '@/payload-types'
 import { Card } from '@/components/atoms/Card'
+import { SectionHeader } from '@/components/molecules/SectionHeader'
 import { TypedText } from '@/components/atoms/TypedText/TypedText.client'
 
 type Props = {
@@ -54,12 +55,10 @@ const GroupHeader: React.FC<{ path: string; count: number; accent: string }> = (
   accent,
 }) => (
   <div className="flex items-baseline justify-between gap-4 pb-3 border-b border-dashed border-card-border">
-    <span className="text-base font-bold text-card-foreground">
+    <span className="type-command text-card-foreground">
       <span className={accent}>$</span> <TypedText text={`ls ~/skills/${path}`} />
     </span>
-    <span className="text-[13px] text-card-foreground opacity-50 tabular-nums">
-      {count} entries
-    </span>
+    <span className="type-label text-card-foreground opacity-50 tabular-nums">{count} entries</span>
   </div>
 )
 
@@ -73,16 +72,7 @@ export const SkillsList: React.FC<Props> = ({ label, title, items }) => {
   return (
     <MotionConfig reducedMotion="user">
       <section id="skills" className="container py-16">
-        {(label || title) && (
-          <div className="flex items-baseline gap-4 mb-8 pb-3 border-b border-dashed border-border">
-            {label && <span className="text-sm text-card-foreground opacity-50">{label}</span>}
-            {title && (
-              <span className="text-sm tracking-widest uppercase font-mono text-primary">
-                {title}
-              </span>
-            )}
-          </div>
-        )}
+        <SectionHeader label={label} title={title} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5">
           {hard.length > 0 && (
@@ -142,7 +132,7 @@ export const SkillsList: React.FC<Props> = ({ label, title, items }) => {
                     <span className="text-accent-foreground text-sm transition-transform duration-150 group-hover:translate-x-1">
                       ▸
                     </span>
-                    <span className="font-kalnia text-2xl leading-tight text-card-foreground transition-colors duration-150 group-hover:text-accent-foreground">
+                    <span className="type-body-sm text-card-foreground transition-colors duration-150 group-hover:text-accent-foreground">
                       {skill.name}
                     </span>
                   </motion.li>

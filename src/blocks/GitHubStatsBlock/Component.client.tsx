@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Card, CardLabel, CardTitle } from '@/components/atoms/Card'
+import { Card, CardTitle } from '@/components/atoms/Card'
+import { SectionHeader } from '@/components/molecules/SectionHeader'
 import { CountUp } from '@/components/atoms/CountUp/CountUp.client'
 import { RadarChart } from './components/RadarChart.client'
 import { HeatmapChart } from './components/HeatmapChart.client'
@@ -56,8 +57,7 @@ export const GitHubStatsClient: React.FC<Props> = ({
 
   return (
     <section className="container flex flex-col gap-4">
-      {label && <CardLabel>{label}</CardLabel>}
-      {title ?? 'github.stats'}
+      <SectionHeader label={label} title={title ?? 'github.stats'} className="mb-4" />
       <div className="grid grid-cols-4 gap-3.5">
         {chartData.length > 0 && (
           <Card className="col-span-4 row-span-1 md:col-span-2 md:row-span-4">
@@ -67,7 +67,7 @@ export const GitHubStatsClient: React.FC<Props> = ({
               {showMetrics && (
                 <div className="flex flex-row gap-1.5 mt-2">
                   {skills.map((s) => (
-                    <span key={s.name} className="text-card-foreground text-[13px] opacity-60">
+                    <span key={s.name} className="text-card-foreground type-label opacity-60">
                       {s.name}: {s.score}/100 — {s.repoCount} repos, {formatBytes(s.totalBytes)}
                     </span>
                   ))}
@@ -87,13 +87,13 @@ export const GitHubStatsClient: React.FC<Props> = ({
         {statItems.map(({ key, label: statLabel, suffix }) => (
           <Card key={key}>
             <div className="text-center">
-              <span className="text-2xl font-bold text-card-foreground font-mono">
+              <span className="type-figure text-2xl text-card-foreground">
                 <CountUp
                   className="tabular-nums"
                   value={`${statValues[key].toLocaleString('en-US')}${suffix}`}
                 />
               </span>
-              <p className="text-card-foreground text-[13px] opacity-60 mt-1">{statLabel}</p>
+              <p className="text-card-foreground type-label opacity-60 mt-1">{statLabel}</p>
             </div>
           </Card>
         ))}

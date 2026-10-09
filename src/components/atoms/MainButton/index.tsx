@@ -4,7 +4,7 @@ import { cn } from '@/utilities/ui'
 import { type LucideIcon } from 'lucide-react'
 
 const variants = {
-  base: 'bg-primary text-primary-foreground px-4 py-3 font-semibold',
+  base: 'bg-primary text-primary-foreground px-4 py-3 font-semibold transition-colors duration-200 hover:bg-accent-foreground',
   line: 'border border-primary text-blue-500 hover:bg-blue-100 px-4 py-3',
   link: 'text-primary underline',
 }
