@@ -9,7 +9,7 @@ export const ContactBlockComponent: React.FC<ContactBlockType> = ({
   linkedinUrl,
 }) => {
   return (
-    <section className="container py-16">
+    <section id="contact" className="container py-16">
       {sectionTitle && <h2 className="text-2xl font-bold mb-8">{sectionTitle}</h2>}
       <div className="flex flex-col gap-4">
         {email && (
