@@ -37,13 +37,24 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data }) => {
         theme={{
           text: {
             fill: 'var(--card-foreground)',
-            fontSize: 10,
+            fontSize: 12,
             fontFamily: 'monospace',
           },
           grid: {
             line: {
               stroke: 'var(--border)',
               strokeOpacity: 0.4,
+            },
+          },
+          // nivo's default tooltip is white, which hides the light `text.fill` above.
+          tooltip: {
+            container: {
+              background: 'var(--card)',
+              color: 'var(--card-foreground)',
+              border: '1px solid var(--primary)',
+              borderRadius: 0,
+              fontSize: 13,
+              fontFamily: 'monospace',
             },
           },
         }}
