@@ -33,6 +33,17 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
       'The project highlights a responsive layout that adapts seamlessly across devices, ensuring clarity and usability for all visitors.',
       'Special emphasis was placed on interactive and animated experiences: advanced animations were integrated using Rive and Motion.dev, bringing dynamic, engaging motion to the interface. These animations not only enhance the visual appeal but also create a memorable and lively user experience throughout the site.',
     ),
+    problem: richText(
+      'A private English teacher needed an online presence that reflects their personality and teaching style, and makes it easy for prospective students to get in touch and book a lesson.',
+    ),
+    technicalDecisions: richText(
+      'Astro 5 renders the page as static HTML and hydrates only the interactive pieces as React islands, so the site stays fast while still supporting rich animation.',
+      'Rive drives the animated icons and Motion handles entrance and carousel transitions. The contact form sends through EmailJS, which avoids running a backend, and the site deploys to GitHub Pages from a GitHub Actions workflow on every push to main.',
+    ),
+    constraints: richText(
+      'The site is fully static and hosted on GitHub Pages, so contact and booking had to work without a server.',
+    ),
+    outcome: richText('Live at jayfaris.nexolabs.xyz, built between April and June 2025.'),
     techStack: [
       { name: 'React' },
       { name: 'Astro' },
@@ -40,6 +51,7 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
       { name: 'TypeScript' },
       { name: 'Rive' },
       { name: 'Motion.dev' },
+      { name: 'EmailJS' },
     ],
     tags: [
       { tag: 'Interactive Animations' },
@@ -50,7 +62,7 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
     client: 'Jay Faris',
     status: 'completed',
     featured: true,
-    publishedAt: '2025-06-01T00:00:00.000Z',
+    publishedAt: '2025-06-17T00:00:00.000Z',
   },
   {
     title: 'Dynamic Knowledge Hub',
@@ -63,10 +75,22 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
       'I led the integration of functional components in the prototype, prioritizing optimization of the user experience and scalability. To ensure high-quality, secure code, I utilized advanced tools and approaches that facilitated the development of a robust solution.',
       'The project involved creating a dynamic grid to display various content types in an organized and flexible way, using a dynamic board concept.',
       'Components were designed to adjust to different screen sizes, ensuring a smooth, consistent user experience across devices. A parallax effect was applied to the books on hover, adding interactivity and enhancing the user experience.',
+      'Between November 2024 and June 2025 I contributed the design system foundations (typography, colour, buttons, tags, inputs) plus the header and animated mobile menu, article and book cards, hero, carousels, comment section, newsletter subscription and five featured-grid layouts for the home page.',
+    ),
+    problem: richText(
+      'The portal exists to preserve and share the work of Antonio Escohotado (books, articles, videos and quotes) with his community. The interface had to present very different content types consistently.',
+    ),
+    technicalDecisions: richText(
+      'The UI lives in its own component library, documented in Storybook with autodocs and organised with Atomic Design, so components are designed and reviewed in isolation before reaching the app.',
+      'The home grid uses CSS container queries and fluid clamp() typography, letting each featured card adapt to the space it is given rather than to the viewport. Carousels are built on Embla. The platform itself is a pnpm and Turborepo monorepo on Next.js App Router and Payload CMS.',
+    ),
+    constraints: richText(
+      'Figma was the single source of truth for the design, and every component had to match it across breakpoints and browsers, including Safari-specific fixes.',
     ),
     techStack: [
       { name: 'Storybook' },
       { name: 'React' },
+      { name: 'Next.js' },
       { name: 'Tailwind CSS' },
       { name: 'TypeScript' },
       { name: 'Motion.dev' },
@@ -87,7 +111,7 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
     client: 'La Emboscadura SL',
     status: 'completed',
     featured: true,
-    publishedAt: '2025-01-01T00:00:00.000Z',
+    publishedAt: '2025-06-10T00:00:00.000Z',
   },
   {
     title: 'Dungeon Crawl',
@@ -95,7 +119,25 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
     overview: richText(
       'Empowers Dungeon Masters (DMs) to effortlessly manage their parties and access crucial Dungeons & Dragons data, streamlining the game experience.',
     ),
-    techStack: [{ name: 'iOS 17 ScrollView' }, { name: 'SwiftData' }, { name: 'Async Await' }],
+    problem: richText(
+      'Running a Dungeons & Dragons campaign means juggling party sheets, non-player characters and monster stats. Dungeon Crawl keeps them in one app for the Dungeon Master.',
+    ),
+    whatIBuilt: richText(
+      'Campaigns with their players and non-player characters, each with create, edit and detail screens, form validation and photos picked from the library.',
+      'A monster compendium loaded from the D&D 5e API, with a list filtered by initial and a detail view. A custom tab bar and horizontally paged card lists.',
+      'Encounters are modelled and are the next feature in progress.',
+    ),
+    technicalDecisions: richText(
+      'SwiftData models with cascade relationships between campaigns, players and encounters, so deleting a campaign cleans up everything under it. MVVM with the @Observable macro.',
+      'Networking uses async/await over URLSession with typed errors, behind a persistence protocol so views can be previewed with sample data. Paged carousels use the iOS 17 scroll APIs: scrollTargetBehavior, containerRelativeFrame and scrollTransition.',
+    ),
+    constraints: richText('iOS 17 only, because it relies on SwiftData and the new scroll APIs.'),
+    techStack: [
+      { name: 'SwiftUI' },
+      { name: 'SwiftData' },
+      { name: 'Async Await' },
+      { name: 'iOS 17 ScrollView' },
+    ],
     tags: [{ tag: 'iOS 17' }],
     buttons: [
       {
@@ -107,7 +149,7 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
     githubRepo: 'mogamiGit/Dungeon-Crawl',
     status: 'completed',
     featured: true,
-    publishedAt: '2023-09-01T00:00:00.000Z',
+    publishedAt: '2024-02-25T00:00:00.000Z',
   },
   {
     title: 'OhTaku!',
@@ -115,12 +157,21 @@ export const projects: RequiredDataFromCollectionSlug<'projects'>[] = [
     overview: richText(
       'Discover and track your favorite anime. Dive into a vast database of titles, consult detailed information, and effortlessly track your progress with a tap.',
     ),
-    techStack: [{ name: 'Lottie animation' }, { name: 'Local management' }],
+    whatIBuilt: richText(
+      'A searchable anime catalogue with sorting by title or year in either direction and filtering by type (series, special, OVA, film).',
+      'A detail screen with star rating, extra information and navigation to related titles. A watch list to track what you have seen, and an animated splash screen.',
+    ),
+    technicalDecisions: richText(
+      'MVVM with an ObservableObject view model. The catalogue ships as a bundled JSON file that is copied to the documents directory on first launch; from then on the app reads and writes that copy, so the watch list persists with no backend or database.',
+      'The file location is injected through a protocol, which lets previews run on test data. The splash animation uses Lottie.',
+    ),
+    constraints: richText('Fully offline: no network calls, all data is local.'),
+    techStack: [{ name: 'SwiftUI' }, { name: 'Lottie animation' }, { name: 'Local management' }],
     tags: [{ tag: 'iOS 16' }],
     githubRepo: 'mogamiGit/Ohtaku',
     status: 'completed',
     featured: true,
-    publishedAt: '2022-09-01T00:00:00.000Z',
+    publishedAt: '2023-09-14T00:00:00.000Z',
   },
 ]
 
@@ -253,6 +304,13 @@ export const homePage: RequiredDataFromCollectionSlug<'pages'> = {
         'My mantra is simple: learn, design, develop, have fun, repeat! Because, honestly, why should the process of creating something incredible be boring? I love pushing boundaries, exploring new trends, and finding the perfect balance between functionality and style.',
         "Let's turn your digital dreams into vibrant realities together!",
       ),
+      mantra: [
+        { step: 'learn' },
+        { step: 'design' },
+        { step: 'develop' },
+        { step: 'have fun' },
+        { step: 'repeat' },
+      ],
     },
     {
       blockType: 'skillsBlock',

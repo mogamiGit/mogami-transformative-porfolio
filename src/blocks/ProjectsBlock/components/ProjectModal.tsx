@@ -2,13 +2,8 @@ import React, { useEffect, useState } from 'react'
 import type { Project } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { AnimatePresence, motion } from 'motion/react'
-import RichText from '@/components/organisms/RichText'
-import { RadarChart } from '@/blocks/GitHubStatsBlock/components/RadarChart.client'
-import { getProjectRadarData } from '@/utilities/projectRadar'
-import { ModalSection } from '@/components/atoms/ModalSection'
+import { ProjectModalBody } from './ProjectModalBody'
 import { ProjectModalHeader } from './ProjectModalHeader'
-import { ProjectModalButtons } from './ProjectModalButtons'
-import { ProjectModalMeta } from './ProjectModalMeta'
 
 type Phase = 'pulse' | 'expand' | 'ready'
 
@@ -159,70 +154,7 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
                   onClose={onClose}
                 />
 
-                {/* Modal body */}
-                <div className="flex flex-col flex-1 overflow-y-auto px-8 py-6 project-drawer-scroll gap-3.5">
-                  {project.tags?.[0] && (
-                    <div className="text-[13px] text-primary tracking-[0.14em] uppercase">
-                      {project.tags[0].tag.toUpperCase()}
-                    </div>
-                  )}
-
-                  <h2
-                    className="font-kalnia text-foreground leading-none tracking-tight font-normal"
-                    style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}
-                  >
-                    {project.title}.
-                  </h2>
-
-                  {/* Overview */}
-                  {project.overview && (
-                    <RichText
-                      data={project.overview}
-                      enableGutter={false}
-                      enableProse={false}
-                      className="text-base text-card-foreground opacity-70 leading-relaxed"
-                    />
-                  )}
-
-                  <div className="flex gap-12">
-                    <div className="flex flex-col gap-4">
-                      {/* Tech stack */}
-                      {project.techStack && project.techStack.length > 0 && (
-                        <div className="flex flex-col gap-2">
-                          <h3 className="text-lg font-medium text-foreground">Stack</h3>
-                          <div className="flex flex-wrap gap-1.5">
-                            {project.techStack.map((t) => (
-                              <span
-                                key={t.id}
-                                className="inline-flex items-center px-2 py-0.5 border border-primary/40 text-sm tracking-[0.06em] uppercase text-primary bg-primary/8"
-                              >
-                                {t.name}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {/* Project Radar */}
-                      {(() => {
-                        const radarData = getProjectRadarData(project.techStack)
-                        if (!radarData) return null
-                        return <RadarChart data={radarData} />
-                      })()}
-                    </div>
-
-                    <div className="flex-1 flex flex-col gap-6.5">
-                      <ModalSection title="Problem" data={project.problem} />
-                      <ModalSection title="What I Built" data={project.whatIBuilt} />
-                      <ModalSection title="Technical Decisions" data={project.technicalDecisions} />
-                      <ModalSection title="Constraints" data={project.constraints} />
-                      <ModalSection title="Outcome" data={project.outcome} />
-                    </div>
-                  </div>
-
-                  <ProjectModalButtons githubRepo={project.githubRepo} buttons={project.buttons} />
-
-                  <ProjectModalMeta client={project.client} publishedAt={project.publishedAt} />
-                </div>
+                <ProjectModalBody project={project} />
               </motion.div>
             </motion.div>
           </motion.div>
