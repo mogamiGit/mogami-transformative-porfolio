@@ -12,6 +12,7 @@ export const Projects: CollectionConfig = {
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
+    readVersions: authenticated,
   },
   admin: {
     defaultColumns: ['title', 'featured', 'publishedAt'],
@@ -148,4 +149,7 @@ export const Projects: CollectionConfig = {
     },
     slugField(),
   ],
+  versions: {
+    drafts: true,
+  },
 }
