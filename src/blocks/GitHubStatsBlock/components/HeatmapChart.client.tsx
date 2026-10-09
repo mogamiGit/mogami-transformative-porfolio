@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { ResponsiveCalendar } from '@nivo/calendar'
+import { MotionConfig, motion, useInView } from 'motion/react'
 import type { ContributionDay } from '@/utilities/github'
 
 type Props = {
@@ -9,6 +10,10 @@ type Props = {
 }
 
 export const HeatmapChart: React.FC<Props> = ({ data }) => {
+  // The clipped element itself never intersects the viewport, so watch its wrapper.
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.4 })
+
   const { calendarData, from, to } = useMemo(() => {
     if (data.length === 0) return { calendarData: [], from: '', to: '' }
 
@@ -27,43 +32,52 @@ export const HeatmapChart: React.FC<Props> = ({ data }) => {
   if (calendarData.length === 0) return null
 
   return (
-    <div className="w-full h-35">
-      <ResponsiveCalendar
-        data={calendarData}
-        from={from}
-        to={to}
-        emptyColor="var(--heatmap-0, #161b22)"
-        colors={[
-          'var(--heatmap-1, #0e4429)',
-          'var(--heatmap-2, #006d32)',
-          'var(--heatmap-3, #26a641)',
-          'var(--heatmap-4, #39d353)',
-        ]}
-        margin={{ top: 20, right: 20, bottom: 0, left: 20 }}
-        yearSpacing={40}
-        monthBorderColor="transparent"
-        dayBorderWidth={2}
-        dayBorderColor="var(--card, #0d1117)"
-        theme={{
-          text: {
-            fill: 'var(--card-foreground)',
-            fontSize: 12,
-            fontFamily: 'monospace',
-          },
-          labels: {
-            text: {
-              fill: 'var(--card-foreground)',
-              fontSize: 12,
-              fontFamily: 'monospace',
-            },
-          },
-        }}
-        tooltip={({ day, value }) => (
-          <div className="bg-card text-card-foreground border border-border px-2 py-1 rounded text-sm font-mono">
-            {day}: {value ?? 0} contributions
-          </div>
-        )}
-      />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div ref={ref} className="w-full h-35">
+        <motion.div
+          className="w-full h-full"
+          initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0 }}
+          animate={inView ? { clipPath: 'inset(0 0% 0 0)', opacity: 1 } : undefined}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <ResponsiveCalendar
+            data={calendarData}
+            from={from}
+            to={to}
+            emptyColor="var(--heatmap-0, #161b22)"
+            colors={[
+              'var(--heatmap-1, #0e4429)',
+              'var(--heatmap-2, #006d32)',
+              'var(--heatmap-3, #26a641)',
+              'var(--heatmap-4, #39d353)',
+            ]}
+            margin={{ top: 20, right: 20, bottom: 0, left: 20 }}
+            yearSpacing={40}
+            monthBorderColor="transparent"
+            dayBorderWidth={2}
+            dayBorderColor="var(--card, #0d1117)"
+            theme={{
+              text: {
+                fill: 'var(--card-foreground)',
+                fontSize: 12,
+                fontFamily: 'monospace',
+              },
+              labels: {
+                text: {
+                  fill: 'var(--card-foreground)',
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                },
+              },
+            }}
+            tooltip={({ day, value }) => (
+              <div className="bg-card text-card-foreground border border-border px-2 py-1 rounded text-sm font-mono">
+                {day}: {value ?? 0} contributions
+              </div>
+            )}
+          />
+        </motion.div>
+      </div>
+    </MotionConfig>
   )
 }

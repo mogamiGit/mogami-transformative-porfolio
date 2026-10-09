@@ -25,7 +25,7 @@ export const CountUp: React.FC<{ value: string }> = ({ value }) => {
   const inView = useInView(ref, { once: true })
   const reducedMotion = useReducedMotion()
   const current = useMotionValue(target)
-  const rounded = useTransform(current, (latest) => Math.round(latest))
+  const rounded = useTransform(current, (latest) => Math.round(latest).toLocaleString('en-US'))
 
   useEffect(() => {
     if (!hasNumber || !inView || reducedMotion) return
