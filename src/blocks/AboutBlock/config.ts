@@ -15,6 +15,21 @@ export const AboutBlock: Block = {
       type: 'richText',
       editor: lexicalEditor({}),
     },
+    {
+      name: 'mantra',
+      type: 'array',
+      admin: {
+        description:
+          'Short steps shown as a looping sequence next to the bio, e.g. learn → design → repeat',
+      },
+      fields: [
+        {
+          name: 'step',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
   ],
   labels: {
     plural: 'About Blocks',
