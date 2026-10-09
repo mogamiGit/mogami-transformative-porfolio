@@ -88,7 +88,10 @@ export const GitHubStatsClient: React.FC<Props> = ({
           <Card key={key}>
             <div className="text-center">
               <span className="text-2xl font-bold text-card-foreground font-mono">
-                <CountUp value={`${statValues[key]}${suffix}`} />
+                <CountUp
+                  className="tabular-nums"
+                  value={`${statValues[key].toLocaleString('en-US')}${suffix}`}
+                />
               </span>
               <p className="text-card-foreground text-[13px] opacity-60 mt-1">{statLabel}</p>
             </div>
