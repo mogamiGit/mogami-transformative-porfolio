@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Card } from '@/components/atoms/Card'
+import { CountUp } from '@/components/atoms/CountUp/CountUp.client'
 import { cn } from '@/utilities/ui'
 
 export type HighlightCardProps = {
@@ -21,9 +22,14 @@ export type HighlightCardProps = {
  */
 export const HighlightCard: React.FC<HighlightCardProps> = ({ figure, label, className }) => {
   return (
-    <Card variant="highlight" className={cn('flex-col-reverse gap-1.5', className)}>
-      <dt className="text-card-foreground text-[10px] opacity-60">{label}</dt>
-      <dd className="text-primary text-3xl font-bold m-0">{figure}</dd>
+    <Card variant="highlight" className={cn(
+        'flex-col-reverse gap-1.5 transition-transform duration-200 hover:-translate-y-1',
+        className,
+      )}>
+      <dt className="text-card-foreground text-[13px] opacity-60">{label}</dt>
+      <dd className="text-primary text-3xl font-bold m-0">
+        <CountUp value={figure} />
+      </dd>
     </Card>
   )
 }

@@ -15,6 +15,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { PortfolioHeroBlockComponent } from '@/blocks/PortfolioHero/Component'
 import { ProjectsBlockComponent } from '@/blocks/ProjectsBlock/Component'
 import { SkillsBlockComponent } from '@/blocks/SkillsBlock/Component'
+import { Reveal } from '@/components/atoms/Reveal/Reveal.client'
 
 const blockComponents = {
   aboutBlock: AboutBlockComponent,
@@ -49,11 +50,14 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
+              // The first block is above the fold and animates itself.
+              const Wrapper = index === 0 ? 'div' : Reveal
+
               return (
-                <div className="my-16" key={index}>
+                <Wrapper className="my-16" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
-                </div>
+                </Wrapper>
               )
             }
           }
