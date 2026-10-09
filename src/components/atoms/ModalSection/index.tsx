@@ -16,7 +16,7 @@ export const ModalSection: React.FC<ModalSectionProps> = ({ title, data }) => {
         data={data}
         enableGutter={false}
         enableProse={false}
-        className="text-sm text-card-foreground opacity-70 leading-relaxed"
+        className="text-base text-card-foreground opacity-70 leading-relaxed"
       />
     </div>
   )

@@ -47,19 +47,19 @@ export const HeatmapChart: React.FC<Props> = ({ data }) => {
         theme={{
           text: {
             fill: 'var(--card-foreground)',
-            fontSize: 10,
+            fontSize: 12,
             fontFamily: 'monospace',
           },
           labels: {
             text: {
               fill: 'var(--card-foreground)',
-              fontSize: 10,
+              fontSize: 12,
               fontFamily: 'monospace',
             },
           },
         }}
         tooltip={({ day, value }) => (
-          <div className="bg-card text-card-foreground border border-border px-2 py-1 rounded text-[11px] font-mono">
+          <div className="bg-card text-card-foreground border border-border px-2 py-1 rounded text-sm font-mono">
             {day}: {value ?? 0} contributions
           </div>
         )}

@@ -162,7 +162,7 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
                 {/* Modal body */}
                 <div className="flex flex-col flex-1 overflow-y-auto px-8 py-6 project-drawer-scroll gap-3.5">
                   {project.tags?.[0] && (
-                    <div className="text-[10px] text-primary tracking-[0.14em] uppercase">
+                    <div className="text-[13px] text-primary tracking-[0.14em] uppercase">
                       {project.tags[0].tag.toUpperCase()}
                     </div>
                   )}
@@ -180,7 +180,7 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
                       data={project.overview}
                       enableGutter={false}
                       enableProse={false}
-                      className="text-sm text-card-foreground opacity-70 leading-relaxed"
+                      className="text-base text-card-foreground opacity-70 leading-relaxed"
                     />
                   )}
 
@@ -194,7 +194,7 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
                             {project.techStack.map((t) => (
                               <span
                                 key={t.id}
-                                className="inline-flex items-center px-2 py-0.5 border border-primary/40 text-[11px] tracking-[0.06em] uppercase text-primary bg-primary/8"
+                                className="inline-flex items-center px-2 py-0.5 border border-primary/40 text-sm tracking-[0.06em] uppercase text-primary bg-primary/8"
                               >
                                 {t.name}
                               </span>

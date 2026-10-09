@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const ViewToggle: React.FC<Props> = ({ view, onViewChange, command }) => (
-  <div className="flex items-center gap-3 text-[11px] font-mono">
+  <div className="flex items-center gap-3 text-sm font-mono">
     {command && <span className="text-primary">{command}</span>}
     <Toggle options={VIEW_OPTIONS} value={view} onChange={onViewChange} />
   </div>

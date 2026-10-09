@@ -19,7 +19,7 @@ export const ProjectModalButtons: React.FC<ProjectModalButtonsProps> = ({
           href={`https://github.com/${githubRepo}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-primary text-xs text-primary bg-primary/8 no-underline font-mono cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-primary text-sm text-primary bg-primary/8 no-underline font-mono cursor-pointer"
         >
           <span className="text-card-foreground opacity-50">$ </span>
           GitHub ↗
@@ -31,7 +31,7 @@ export const ProjectModalButtons: React.FC<ProjectModalButtonsProps> = ({
           href={btn.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-primary text-xs text-primary bg-primary/8 no-underline font-mono cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-primary text-sm text-primary bg-primary/8 no-underline font-mono cursor-pointer"
         >
           <span className="text-card-foreground opacity-50">$ </span>
           {btn.text}
