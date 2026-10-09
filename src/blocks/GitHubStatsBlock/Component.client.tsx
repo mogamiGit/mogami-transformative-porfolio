@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Card, CardLabel, CardTitle } from '@/components/atoms/Card'
+import { CountUp } from '@/components/atoms/CountUp/CountUp.client'
 import { RadarChart } from './components/RadarChart.client'
 import { HeatmapChart } from './components/HeatmapChart.client'
 import { CodingHoursChart } from './components/CodingHoursChart.client'
@@ -61,43 +62,42 @@ export const GitHubStatsClient: React.FC<Props> = ({
         {chartData.length > 0 && (
           <Card className="col-span-4 row-span-1 md:col-span-2 md:row-span-4">
             <CardTitle>languages</CardTitle>
-              <div className="flex-1">
-                <RadarChart data={chartData} />
-                {showMetrics && (
-                  <div className="flex flex-row gap-1.5 mt-2">
-                    {skills.map((s) => (
-                      <span key={s.name} className="text-card-foreground text-[13px] opacity-60">
-                        {s.name}: {s.score}/100 — {s.repoCount} repos, {formatBytes(s.totalBytes)}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </Card>
-          )}
-          
-          {codingHours.length > 0 && (
-            <Card className="col-span-4 md:col-span-2 md:row-span-2">
-              <CardTitle>coding-hours</CardTitle>
-              <CodingHoursChart data={codingHours} />
-            </Card>
-          )}
-          
-          {statItems.map(({ key, label: statLabel, suffix }) => (
-            <Card key={key}>
-              <div className="text-center">
-                <span className="text-2xl font-bold text-card-foreground font-mono">
-                  {statValues[key].toLocaleString()}
-                  {suffix}
-                </span>
-                <p className="text-card-foreground text-[13px] opacity-60 mt-1">{statLabel}</p>
-              </div>
-            </Card>
-          ))}
-            
-          <Card className="col-span-4">
-            <CardTitle>year contributions</CardTitle>
-            <HeatmapChart data={contributions} />
+            <div className="flex-1">
+              <RadarChart data={chartData} />
+              {showMetrics && (
+                <div className="flex flex-row gap-1.5 mt-2">
+                  {skills.map((s) => (
+                    <span key={s.name} className="text-card-foreground text-[13px] opacity-60">
+                      {s.name}: {s.score}/100 — {s.repoCount} repos, {formatBytes(s.totalBytes)}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </Card>
+        )}
+
+        {codingHours.length > 0 && (
+          <Card className="col-span-4 md:col-span-2 md:row-span-2">
+            <CardTitle>coding-hours</CardTitle>
+            <CodingHoursChart data={codingHours} />
+          </Card>
+        )}
+
+        {statItems.map(({ key, label: statLabel, suffix }) => (
+          <Card key={key}>
+            <div className="text-center">
+              <span className="text-2xl font-bold text-card-foreground font-mono">
+                <CountUp value={`${statValues[key]}${suffix}`} />
+              </span>
+              <p className="text-card-foreground text-[13px] opacity-60 mt-1">{statLabel}</p>
+            </div>
+          </Card>
+        ))}
+
+        <Card className="col-span-4">
+          <CardTitle>year contributions</CardTitle>
+          <HeatmapChart data={contributions} />
         </Card>
       </div>
     </section>
