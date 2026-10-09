@@ -23,7 +23,7 @@ export function Toggle<T extends string>({ options, value, onChange, className }
           key={opt.value}
           onClick={() => onChange(opt.value)}
           className={cn(
-            'px-2.5 py-1 text-[11px] font-mono cursor-pointer border-none',
+            'px-2.5 py-1 text-sm font-mono cursor-pointer border-none',
             i < options.length - 1 && 'border-r border-border',
             value === opt.value
               ? 'bg-primary/12 text-primary'

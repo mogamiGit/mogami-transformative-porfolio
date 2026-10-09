@@ -28,11 +28,11 @@ export const CardType: React.FC<CardTypeProps> = ({
       {status && (
         <div className="flex items-center gap-1.5">
           <span className={cn('size-2 rounded-full', statusColor)} />
-          <span className="text-primary text-[10px] italic">{status}</span>
+          <span className="text-primary text-[13px] italic">{status}</span>
         </div>
       )}
       {description && (
-        <span className="text-card-foreground text-[10px] flex-1">{description}</span>
+        <span className="text-card-foreground text-[13px] flex-1">{description}</span>
       )}
     </Card>
   )

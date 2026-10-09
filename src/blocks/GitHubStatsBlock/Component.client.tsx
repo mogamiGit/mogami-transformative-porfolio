@@ -66,7 +66,7 @@ export const GitHubStatsClient: React.FC<Props> = ({
                 {showMetrics && (
                   <div className="flex flex-row gap-1.5 mt-2">
                     {skills.map((s) => (
-                      <span key={s.name} className="text-card-foreground text-[10px] opacity-60">
+                      <span key={s.name} className="text-card-foreground text-[13px] opacity-60">
                         {s.name}: {s.score}/100 — {s.repoCount} repos, {formatBytes(s.totalBytes)}
                       </span>
                     ))}
@@ -90,7 +90,7 @@ export const GitHubStatsClient: React.FC<Props> = ({
                   {statValues[key].toLocaleString()}
                   {suffix}
                 </span>
-                <p className="text-card-foreground text-[10px] opacity-60 mt-1">{statLabel}</p>
+                <p className="text-card-foreground text-[13px] opacity-60 mt-1">{statLabel}</p>
               </div>
             </Card>
           ))}

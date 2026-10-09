@@ -42,9 +42,9 @@ export const HighlightPointsBlockComponent: React.FC<HighlightPointsBlockType> =
     <section className="container">
       {(hasLabel || hasTitle) && (
         <div className="flex items-baseline gap-4 mb-8 pb-3 border-b border-dashed border-border">
-          {hasLabel && <span className="text-[11px] text-card-foreground opacity-50">{label}</span>}
+          {hasLabel && <span className="text-sm text-card-foreground opacity-50">{label}</span>}
           {hasTitle && (
-            <span className="text-[11px] tracking-widest uppercase font-mono text-primary">
+            <span className="text-sm tracking-widest uppercase font-mono text-primary">
               {title}
             </span>
           )}

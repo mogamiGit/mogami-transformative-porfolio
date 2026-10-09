@@ -26,11 +26,11 @@ export const Card: React.FC<CardProps> = ({ variant, className, children, ...pro
 }
 
 export const CardLabel: React.FC<React.ComponentProps<'span'>> = ({ className, ...props }) => (
-  <span className={cn('text-accent-foreground text-[9px]', className)} {...props} />
+  <span className={cn('text-accent-foreground text-xs', className)} {...props} />
 )
 
 export const CardTitle: React.FC<React.ComponentProps<'span'>> = ({ className, ...props }) => (
-  <span className={cn('text-card-foreground text-xs font-bold', className)} {...props} />
+  <span className={cn('text-card-foreground text-sm font-bold', className)} {...props} />
 )
 
 export { cardVariants }

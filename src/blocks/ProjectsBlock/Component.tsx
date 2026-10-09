@@ -14,7 +14,7 @@ export const ProjectsBlockComponent: React.FC<ProjectsBlockType> = async ({
     collection: 'projects',
     sort: '-publishedAt',
     pagination: false,
-    overrideAccess: true,
+    overrideAccess: false,
     ...(showFeaturedOnly ? { where: { featured: { equals: true } } } : {}),
     ...(limit ? { limit } : {}),
   })
@@ -22,17 +22,17 @@ export const ProjectsBlockComponent: React.FC<ProjectsBlockType> = async ({
   return (
     <section id="projects" className="container py-16 px-8 border-b border-border">
       <div className="flex items-baseline gap-4 mb-8 pb-3 border-b border-dashed border-border">
-        <span className="text-[11px] tabular-nums" style={{ color: 'var(--card-foreground)', opacity: 0.5 }}>
+        <span className="text-sm tabular-nums" style={{ color: 'var(--card-foreground)', opacity: 0.5 }}>
           03 / 07
         </span>
         <span
-          className="text-[11px] tracking-widest uppercase font-mono"
+          className="text-sm tracking-widest uppercase font-mono"
           style={{ color: 'var(--primary)' }}
         >
           <span style={{ color: 'var(--card-foreground)', opacity: 0.4 }}> </span>
           {sectionTitle || 'projects'}
         </span>
-        <span className="ml-auto text-[11px] font-mono" style={{ color: 'var(--card-foreground)', opacity: 0.4 }}>
+        <span className="ml-auto text-sm font-mono" style={{ color: 'var(--card-foreground)', opacity: 0.4 }}>
           ls ./projects · {projects.length} entries
         </span>
       </div>

@@ -22,7 +22,7 @@ export const CardNumber: React.FC<CardNumberProps> = ({
       <span className="text-card-foreground font-sans text-[40px] font-bold leading-none">
         {value}
       </span>
-      {meta && <span className="text-accent-foreground text-[11px]">{meta}</span>}
+      {meta && <span className="text-accent-foreground text-sm">{meta}</span>}
     </Card>
   )
 }
