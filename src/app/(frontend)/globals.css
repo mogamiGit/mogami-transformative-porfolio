@@ -47,6 +47,13 @@
   --font-sans: var(--font-hubot-sans), var(--font-geist-sans);
   --font-kalnia: var(--font-kalnia);
   --font-hubot: var(--font-hubot-sans);
+  --animate-blink: blink 1s steps(1) infinite;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
 }
 
 @utility container {

@@ -9,6 +9,7 @@ import React from 'react'
 
 import { AdminBar } from '@/components/molecules/AdminBar'
 import { BackgroundGlow } from '@/components/atoms/BackgroundGlow'
+import { ScrollProgress } from '@/components/atoms/ScrollProgress/ScrollProgress.client'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
@@ -47,6 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <BackgroundGlow />
+        <ScrollProgress />
         <Providers>
           <AdminBar
             adminBarProps={{
