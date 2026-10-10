@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { ResponsiveCalendar } from '@nivo/calendar'
 import { MotionConfig, motion, useInView } from 'motion/react'
 import type { ContributionDay } from '@/utilities/github'
@@ -13,6 +13,8 @@ export const HeatmapChart: React.FC<Props> = ({ data }) => {
   // The clipped element itself never intersects the viewport, so watch its wrapper.
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.4 })
+  // Once the wipe has finished the clip opens outwards, so the tooltip can overflow the chart box
+  const [revealed, setRevealed] = useState(false)
 
   const { calendarData, from, to } = useMemo(() => {
     if (data.length === 0) return { calendarData: [], from: '', to: '' }
@@ -36,9 +38,16 @@ export const HeatmapChart: React.FC<Props> = ({ data }) => {
       <div ref={ref} className="w-full h-35">
         <motion.div
           className="w-full h-full"
-          initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0 }}
-          animate={inView ? { clipPath: 'inset(0 0% 0 0)', opacity: 1 } : undefined}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ clipPath: 'inset(0% 100% 0% 0%)', opacity: 0 }}
+          animate={
+            revealed
+              ? { clipPath: 'inset(-100% -100% -100% -100%)', opacity: 1 }
+              : inView
+                ? { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }
+                : undefined
+          }
+          onAnimationComplete={() => setRevealed(true)}
+          transition={revealed ? { duration: 0 } : { duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         >
           <ResponsiveCalendar
             data={calendarData}
@@ -71,7 +80,7 @@ export const HeatmapChart: React.FC<Props> = ({ data }) => {
               },
             }}
             tooltip={({ day, value }) => (
-              <div className="bg-card text-card-foreground border border-border px-2 py-1 rounded text-sm font-mono">
+              <div className="bg-background text-foreground border border-border px-2 py-1 rounded text-sm font-mono whitespace-nowrap">
                 {day}: {value ?? 0} contributions
               </div>
             )}

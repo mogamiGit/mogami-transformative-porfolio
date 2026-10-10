@@ -48,8 +48,9 @@ const Chart = React.memo(function Chart({ data }: RadarChartProps) {
         // nivo's default tooltip is white, which hides the light `text.fill` above.
         tooltip: {
           container: {
-            background: 'var(--card)',
-            color: 'var(--card-foreground)',
+            // Opaque: the card behind is translucent, so the chart would show through
+            background: 'var(--background)',
+            color: 'var(--foreground)',
             border: '1px solid var(--primary)',
             borderRadius: 0,
             fontSize: 13,
