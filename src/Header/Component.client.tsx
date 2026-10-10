@@ -1,6 +1,6 @@
 'use client'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
-import { MotionConfig, motion, useMotionValueEvent, useScroll, useSpring } from 'motion/react'
+import { MotionConfig, useMotionValueEvent, useScroll } from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -35,18 +35,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
-  const { scrollY, scrollYProgress } = useScroll()
-  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.001 })
+  const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, 'change', (latest) => setCondensed(latest > CONDENSE_AFTER))
 
   return (
     <MotionConfig reducedMotion="user">
-      <motion.div
-        aria-hidden="true"
-        className="fixed inset-x-0 top-0 z-30 h-0.5 origin-left bg-primary"
-        style={{ scaleX: progress }}
-      />
       <header
         className="container sticky top-4 z-20 flex justify-center pointer-events-none"
         {...(theme ? { 'data-theme': theme } : {})}
