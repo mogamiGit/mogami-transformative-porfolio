@@ -27,14 +27,17 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({ label, title, asid
   if (!hasLabel && !hasTitle) return null
 
   return (
-    <div
-      className={cn(
-        'flex items-baseline gap-4 mb-8 pb-3 border-b border-dashed border-border',
-        className,
+    <div className={cn('flex items-baseline gap-4 mb-8 pb-3 border-b-2 border-border', className)}>
+      {hasLabel && (
+        <span className="type-label italic text-accent-foreground opacity-70">{label}</span>
       )}
-    >
-      {hasLabel && <span className="type-label text-accent-foreground">{label}</span>}
-      {hasTitle && <h2 className="m-0 type-eyebrow text-primary">{title}</h2>}
+      {hasTitle && (
+        <h2 className="m-0 flex items-center gap-3 type-eyebrow text-primary">
+          {/* The one geometric mark: a small diamond announcing each section */}
+          <span aria-hidden="true" className="size-2 shrink-0 rotate-45 border border-primary" />
+          {title}
+        </h2>
+      )}
       {aside && <span className="ml-auto type-label text-card-foreground opacity-50">{aside}</span>}
     </div>
   )

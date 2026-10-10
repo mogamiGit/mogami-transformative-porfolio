@@ -26,7 +26,11 @@ export const MantraLoop: React.FC<{ steps: string[] }> = ({ steps }) => {
   }, [inView, reducedMotion, steps.length])
 
   return (
-    <Card ref={ref} variant="highlight" className="gap-5 p-6 md:p-8 border-accent-foreground">
+    <Card
+      ref={ref}
+      variant="highlight"
+      className="gap-5 p-6 md:p-8 border-accent-foreground texture-dots"
+    >
       <div className="pb-3 border-b border-dashed border-card-border type-command text-card-foreground">
         <span className="text-accent-foreground">$</span> <TypedText text="while true; do" />
       </div>
@@ -48,7 +52,7 @@ export const MantraLoop: React.FC<{ steps: string[] }> = ({ steps }) => {
               <span
                 className={cn(
                   'type-heading transition-colors duration-300',
-                  isActive ? 'text-accent-foreground' : 'text-card-foreground',
+                  isActive ? 'text-accent-foreground font-semibold' : 'text-card-foreground',
                 )}
               >
                 {step}

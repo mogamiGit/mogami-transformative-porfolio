@@ -16,7 +16,7 @@ export const ProjectModalHeader: React.FC<ProjectModalHeaderProps> = ({ slug, on
       </div>
       <button
         onClick={onClose}
-        className="w-6 h-6 flex items-center justify-center border border-border text-base text-card-foreground bg-transparent cursor-pointer font-mono hover:border-primary hover:text-primary transition-colors duration-150"
+        className="w-6 h-6 flex items-center justify-center border border-interactive text-base text-interactive bg-transparent cursor-pointer font-mono hover:bg-interactive hover:text-primary-foreground transition-colors duration-150"
       >
         −
       </button>

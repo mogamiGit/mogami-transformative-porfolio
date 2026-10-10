@@ -5,9 +5,9 @@ import { type VariantProps, cva } from 'class-variance-authority'
 const cardVariants = cva('rounded-[var(--radius)] p-5 flex flex-col gap-3 font-mono border', {
   variants: {
     variant: {
-      default: 'bg-card border-card-border',
+      default: 'bg-card border-dashed border-card-border',
       primary: 'bg-primary border-transparent',
-      highlight: 'bg-card border-primary',
+      highlight: 'bg-card border-2 border-primary',
     },
   },
   defaultVariants: {

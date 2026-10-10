@@ -77,11 +77,11 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             {isActive ? (
               <motion.span
                 layoutId="header-nav-active"
-                className="absolute inset-0 rounded-full bg-primary"
+                className="absolute inset-0 rounded-full bg-interactive"
                 transition={{ type: 'spring', stiffness: 380, damping: 32 }}
               />
             ) : (
-              <span className="absolute inset-0 rounded-full bg-foreground/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <span className="absolute inset-0 rounded-full bg-interactive/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             )}
             <CMSLink
               {...link}
@@ -89,7 +89,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               appearance="link"
               className={cn(
                 'relative h-auto px-3 py-2 text-xs transition-colors duration-300 hover:no-underline sm:px-4 sm:text-sm',
-                isActive ? 'text-primary-foreground' : 'text-foreground/70 hover:text-foreground',
+                isActive ? 'text-primary-foreground' : 'text-interactive hover:text-interactive',
               )}
             >
               <RollingLabel text={link.label ?? ''} />

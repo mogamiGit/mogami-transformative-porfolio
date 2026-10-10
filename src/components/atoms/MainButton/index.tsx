@@ -4,9 +4,9 @@ import { cn } from '@/utilities/ui'
 import { type LucideIcon } from 'lucide-react'
 
 const variants = {
-  base: 'bg-primary text-primary-foreground px-4 py-3 font-semibold transition-colors duration-200 hover:bg-accent-foreground',
-  line: 'border border-primary text-blue-500 hover:bg-blue-100 px-4 py-3',
-  link: 'text-primary underline',
+  base: 'border-2 border-interactive bg-interactive text-primary-foreground px-4 py-3 font-semibold transition-colors duration-200 hover:bg-transparent hover:text-interactive',
+  line: 'border border-interactive text-interactive hover:bg-interactive/10 px-4 py-3',
+  link: 'text-interactive underline',
 }
 
 export const MainButton: React.FC<{

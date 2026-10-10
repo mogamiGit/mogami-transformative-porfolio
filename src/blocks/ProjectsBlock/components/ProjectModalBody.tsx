@@ -135,8 +135,8 @@ export const ProjectModalBody: React.FC<{ project: Project }> = ({ project }) =>
                     className={cn(
                       'flex items-baseline gap-3 bg-transparent border-none p-0 text-left font-mono text-sm cursor-pointer transition-all duration-200',
                       isActive
-                        ? 'text-primary translate-x-2'
-                        : 'text-card-foreground opacity-50 hover:opacity-100',
+                        ? 'text-interactive font-semibold translate-x-2'
+                        : 'text-interactive opacity-60 hover:opacity-100',
                     )}
                   >
                     <span className="tabular-nums">{String(index + 1).padStart(2, '0')}</span>

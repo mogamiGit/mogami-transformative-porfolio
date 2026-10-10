@@ -47,6 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <BackgroundGlow />
+        <div aria-hidden="true" className="texture-grain fixed inset-0 -z-10 pointer-events-none" />
         <Providers>
           <AdminBar
             adminBarProps={{

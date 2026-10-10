@@ -5,7 +5,7 @@ import type { ContactBlockType } from '@/payload-types'
 import { SectionHeader } from '@/components/molecules/SectionHeader'
 
 const linkClassName =
-  'type-title text-foreground no-underline break-all transition-colors duration-200 hover:text-accent-foreground'
+  'type-title text-interactive no-underline break-all underline-offset-8 decoration-1 hover:underline'
 
 export const ContactBlockComponent: React.FC<ContactBlockType> = ({
   sectionTitle,
@@ -27,7 +27,7 @@ export const ContactBlockComponent: React.FC<ContactBlockType> = ({
             href={linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="type-mono text-primary no-underline transition-colors duration-200 hover:text-accent-foreground"
+            className="type-mono text-interactive no-underline underline-offset-4 hover:underline"
           >
             {linkedinLabel || linkedinUrl} ↗
           </a>

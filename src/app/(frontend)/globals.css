@@ -73,7 +73,7 @@
  */
 @utility type-display {
   font-family: var(--font-kalnia);
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -81,7 +81,7 @@
 
 @utility type-title {
   font-family: var(--font-kalnia);
-  font-weight: 400;
+  font-weight: 300;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   line-height: 1.2;
 }
@@ -116,10 +116,10 @@
 
 @utility type-eyebrow {
   font-family: var(--font-mono);
-  font-weight: 400;
+  font-weight: 700;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
@@ -148,6 +148,20 @@
   font-family: var(--font-mono);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+
+/* Film grain laid over the animated background, so flat white type sits on something tactile */
+@utility texture-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.22;
+}
+
+/* Fine dot grid for the inside of emphasised cards */
+@utility texture-dots {
+  background-image: radial-gradient(oklch(1 0 0 / 0.14) 1px, transparent 1px);
+  background-size: 14px 14px;
 }
 
 @utility container {
@@ -179,23 +193,23 @@
 
 :root {
   --background: #104A4F;
-  --foreground: oklch(14.5% 0 0deg);
-  --card: #102122;
-  --card-border: #3D3D3D;
-  --card-foreground: #d0d0d0;
+  --foreground: #ffffff;
+  --card: oklch(0 0 0 / 0.32);
+  --card-border: oklch(1 0 0 / 0.28);
+  --card-foreground: oklch(1 0 0 / 0.86);
   --popover: oklch(100% 0 0deg);
   --popover-foreground: oklch(14.5% 0 0deg);
-  --primary: #00D4AA;
-  --primary-foreground: #0d0d0d;
+  --primary: #ffffff;
+  --primary-foreground: #0a0a0a;
   --secondary: oklch(97% 0 0deg);
   --secondary-foreground: oklch(20.5% 0 0deg);
   --muted: oklch(97% 0 0deg);
-  --muted-foreground: oklch(55.6% 0 0deg);
+  --muted-foreground: oklch(1 0 0 / 0.6);
   --accent: oklch(97% 0 0deg);
-  --accent-foreground: #FF6B35;
+  --accent-foreground: #ffffff;
   --destructive: oklch(57.7% 0.245 27.325deg);
   --destructive-foreground: oklch(57.7% 0.245 27.325deg);
-  --border: #00D4AA;
+  --border: #ffffff;
   --input: oklch(92.2% 0 0deg);
   --ring: oklch(70.8% 0 0deg);
   --chart-1: oklch(64.6% 0.222 41.116deg);
@@ -219,23 +233,23 @@
 
 [data-theme='dark'] {
   --background: oklch(0.06 0 0);
-  --foreground: oklch(98.5% 0 0deg);
-  --card: #102122;
-  --card-border: #3D3D3D;
-  --card-foreground: #d0d0d0;
+  --foreground: #ffffff;
+  --card: oklch(0 0 0 / 0.32);
+  --card-border: oklch(1 0 0 / 0.28);
+  --card-foreground: oklch(1 0 0 / 0.86);
   --popover: oklch(14.5% 0 0deg);
   --popover-foreground: oklch(98.5% 0 0deg);
-  --primary: #00D4AA;
-  --primary-foreground: #0d0d0d;
+  --primary: #ffffff;
+  --primary-foreground: #0a0a0a;
   --secondary: oklch(26.9% 0 0deg);
   --secondary-foreground: oklch(98.5% 0 0deg);
   --muted: oklch(26.9% 0 0deg);
-  --muted-foreground: oklch(70.8% 0 0deg);
+  --muted-foreground: oklch(1 0 0 / 0.6);
   --accent: oklch(26.9% 0 0deg);
-  --accent-foreground: #FF6B35;
+  --accent-foreground: #ffffff;
   --destructive: oklch(39.6% 0.141 25.723deg);
   --destructive-foreground: oklch(63.7% 0.237 25.331deg);
-  --border: #00D4AA;
+  --border: #ffffff;
   --input: oklch(26.9% 0 0deg);
   --ring: oklch(43.9% 0 0deg);
   --chart-1: oklch(48.8% 0.243 264.376deg);
@@ -254,6 +268,22 @@
   --success: oklch(28% 0.1 200deg);
   --warning: oklch(35% 0.08 70deg);
   --error: oklch(45% 0.1 25deg);
+}
+
+/* The only hue in the interface, reserved for things that can be clicked */
+:root,
+[data-theme='dark'] {
+  --interactive: #00d4aa;
+}
+
+/* Monochrome data ramp: charts step through opacity instead of hue */
+:root,
+[data-theme='dark'] {
+  --heatmap-0: oklch(1 0 0 / 0.06);
+  --heatmap-1: oklch(1 0 0 / 0.24);
+  --heatmap-2: oklch(1 0 0 / 0.45);
+  --heatmap-3: oklch(1 0 0 / 0.7);
+  --heatmap-4: oklch(1 0 0 / 1);
 }
 
 @theme inline {
@@ -275,6 +305,7 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
+  --color-interactive: var(--interactive);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
@@ -336,7 +367,7 @@ html[data-theme='light'] {
 @layer base {
   .project-drawer-scroll {
     scrollbar-width: thin;
-    scrollbar-color: oklch(0.75 0.18 175 / 0.4) transparent;
+    scrollbar-color: oklch(1 0 0 / 0.4) transparent;
   }
 
   .project-drawer-scroll::-webkit-scrollbar {
@@ -348,11 +379,11 @@ html[data-theme='light'] {
   }
 
   .project-drawer-scroll::-webkit-scrollbar-thumb {
-    background: oklch(0.75 0.18 175 / 0.4);
+    background: oklch(1 0 0 / 0.4);
   }
 
   .project-drawer-scroll::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.75 0.18 175 / 0.7);
+    background: oklch(1 0 0 / 0.7);
   }
 }
 

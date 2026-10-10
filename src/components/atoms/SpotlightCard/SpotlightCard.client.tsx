@@ -44,7 +44,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
         className={cn(
           'relative overflow-hidden',
           "before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100",
-          'before:bg-[radial-gradient(240px_circle_at_var(--spot-x,50%)_var(--spot-y,50%),rgb(0_212_170/0.22),transparent_70%)]',
+          'before:bg-[radial-gradient(240px_circle_at_var(--spot-x,50%)_var(--spot-y,50%),rgb(255_255_255/0.14),transparent_70%)]',
           "after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-accent-foreground after:origin-left after:scale-x-0 after:transition-transform after:duration-500 hover:after:scale-x-100",
           className,
         )}

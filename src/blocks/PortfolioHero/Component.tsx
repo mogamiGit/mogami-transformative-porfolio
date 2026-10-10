@@ -18,7 +18,7 @@ export const PortfolioHeroBlockComponent: React.FC<PortfolioHeroBlock> = ({
     <section className="container py-24">
       {(tagText || tagEmoji) && (
         <Reveal>
-          <p className="mb-6 inline-flex items-center gap-2 border border-accent-foreground/60 px-3 py-1 type-label text-accent-foreground">
+          <p className="mb-6 inline-flex items-center gap-2 border border-dotted border-accent-foreground px-3 py-1 type-label text-accent-foreground">
             {tagEmoji && <span>{tagEmoji}</span>}
             {tagText}
           </p>

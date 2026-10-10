@@ -20,14 +20,7 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
 
   return (
     <>
-      <div className="flex items-end justify-between gap-6 mb-6 flex-wrap">
-        <h2 className="type-display text-foreground m-0">
-          Selected{' '}
-          <em className="text-primary not-italic" style={{ fontStyle: 'italic' }}>
-            work
-          </em>
-          .
-        </h2>
+      <div className="flex items-end justify-end gap-6 mb-6 flex-wrap">
         <ViewToggle view={view} onViewChange={setView} command="$ ls ~/mogami/projects" />
       </div>
 
@@ -46,7 +39,9 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
                 <div
                   className={cn(
                     'mt-4 type-mono transition-colors duration-150',
-                    hovered === p.id ? 'text-primary' : 'text-foreground',
+                    hovered === p.id
+                      ? 'text-interactive underline underline-offset-4'
+                      : 'text-interactive',
                   )}
                 >
                   {p.slug ?? p.title.toLowerCase().replace(/\s+/g, '-')}/
@@ -56,7 +51,7 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
                 </div>
                 <div
                   className={cn(
-                    'text-xs text-accent-foreground tracking-[0.04em] transition-all duration-160 ease-in-out',
+                    'text-xs text-interactive tracking-[0.04em] transition-all duration-160 ease-in-out',
                     hovered === p.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-0.5',
                   )}
                 >
@@ -74,7 +69,7 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
               className="grid gap-3 px-4 py-2 border-b border-border type-label text-card-foreground opacity-50 tracking-widest uppercase"
               style={{
                 gridTemplateColumns: '110px 1fr 140px 80px 80px 24px',
-                background: 'oklch(0.14 0.04 195)',
+                background: 'oklch(1 0 0 / 0.08)',
               }}
             >
               <span>permission</span>
@@ -92,17 +87,19 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
                 onMouseLeave={() => setHovered(null)}
                 className={cn(
                   'grid gap-3 px-4 py-2.5 border-b border-border items-center cursor-pointer text-left w-full font-mono transition-colors duration-120 ease-in-out',
-                  hovered === p.id ? 'bg-primary/6' : 'bg-transparent',
+                  hovered === p.id ? 'bg-interactive/10' : 'bg-transparent',
                 )}
                 style={{ gridTemplateColumns: '110px 1fr 140px 80px 80px 24px' }}
               >
                 <span className="text-sm text-card-foreground opacity-40">drwxr-xr-x</span>
                 <span className="flex items-baseline gap-1.5">
-                  <span className="text-primary text-sm">▸</span>
+                  <span className="text-interactive text-sm">▸</span>
                   <span
                     className={cn(
                       'text-base transition-colors duration-120 ease-in-out',
-                      hovered === p.id ? 'text-primary' : 'text-foreground',
+                      hovered === p.id
+                        ? 'text-interactive underline underline-offset-4'
+                        : 'text-interactive',
                     )}
                   >
                     {p.title}
@@ -119,7 +116,7 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
                   className={cn(
                     'transition-all duration-120 ease-in-out',
                     hovered === p.id
-                      ? 'text-primary translate-x-0.75 opacity-100'
+                      ? 'text-interactive translate-x-0.75 opacity-100'
                       : 'text-card-foreground translate-x-0 opacity-40',
                   )}
                 >
