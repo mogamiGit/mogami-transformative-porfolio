@@ -7,7 +7,7 @@ const cardVariants = cva('rounded-[var(--radius)] p-5 flex flex-col gap-3 font-m
     variant: {
       default: 'bg-card border-dashed border-card-border',
       primary: 'bg-primary border-transparent',
-      highlight: 'bg-card border-2 border-primary',
+      highlight: 'bg-card border-primary',
     },
   },
   defaultVariants: {
