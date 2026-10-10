@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { Project } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { AnimatePresence, motion } from 'motion/react'
@@ -45,7 +46,10 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
     if (phase === 'expand') setPhase('ready')
   }
 
-  return (
+  if (typeof document === 'undefined') return null
+
+  // Portalled to <body>: a transformed or filtered ancestor would otherwise capture `fixed`
+  return createPortal(
     <AnimatePresence>
       {project && (
         <>
@@ -160,6 +164,7 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }

@@ -323,6 +323,8 @@
 html {
   opacity: 0;
   scroll-behavior: smooth;
+  /* Keeps anchor targets clear of the sticky header */
+  scroll-padding-top: 5rem;
 }
 
 html[data-theme='dark'],

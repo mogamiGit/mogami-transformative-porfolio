@@ -262,9 +262,11 @@ export const skills: SkillData[] = [
 ].map((skill, index) => ({ ...skill, order: index + 1 }))
 
 export const headerNavItems: NonNullable<Header['navItems']> = [
+  // Same order as the sections in `homePage.layout`, so the active marker advances left to right
+  { link: { type: 'custom', label: 'About me', url: '/#about' } },
+  { link: { type: 'custom', label: 'Skills', url: '/#skills' } },
   { link: { type: 'custom', label: 'Projects', url: '/#projects' } },
   { link: { type: 'custom', label: 'Experience', url: '/#experience' } },
-  { link: { type: 'custom', label: 'About me', url: '/#about' } },
   { link: { type: 'custom', label: 'Contact', url: '/#contact' } },
 ]
 
