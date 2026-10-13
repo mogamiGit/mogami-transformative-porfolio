@@ -81,7 +81,7 @@
 
 @utility type-title {
   font-family: var(--font-kalnia);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   line-height: 1.2;
 }
