@@ -66,10 +66,9 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
         {view === 'list' && (
           <div className="border border-border font-mono">
             <div
-              className="grid gap-3 px-4 py-2 border-b border-border type-label text-card-foreground opacity-50 tracking-widest uppercase"
+              className="grid gap-3 px-4 py-2 border-b border-border bg-foreground/8 type-label text-card-foreground opacity-50 tracking-widest uppercase"
               style={{
                 gridTemplateColumns: '110px 1fr 140px 80px 80px 24px',
-                background: 'oklch(1 0 0 / 0.08)',
               }}
             >
               <span>permission</span>
