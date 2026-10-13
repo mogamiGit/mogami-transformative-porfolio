@@ -20,7 +20,7 @@ export const FolderIcon: React.FC<{ hovered: boolean }> = ({ hovered }) => {
           left: 0,
           width: '42%',
           height: 14,
-          background: hovered ? 'oklch(0.26 0.07 195)' : 'oklch(0.2 0.06 195)',
+          background: hovered ? 'var(--folder-tab-hover)' : 'var(--folder-tab)',
           borderTop: `1px solid ${hovered ? 'var(--interactive)' : 'oklch(from var(--interactive) l c h / 0.6)'}`,
           borderRight: `1px solid ${hovered ? 'var(--interactive)' : 'oklch(from var(--interactive) l c h / 0.6)'}`,
           borderBottom: 'none',
@@ -37,7 +37,7 @@ export const FolderIcon: React.FC<{ hovered: boolean }> = ({ hovered }) => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'oklch(0.16 0.05 195)',
+          background: 'var(--folder-back)',
           border: `1px solid ${hovered ? 'var(--interactive)' : 'oklch(from var(--interactive) l c h / 0.55)'}`,
           borderRadius: '1px 4px 4px 4px',
           transition: 'all 220ms ease',
@@ -51,9 +51,7 @@ export const FolderIcon: React.FC<{ hovered: boolean }> = ({ hovered }) => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: hovered
-            ? 'linear-gradient(180deg, oklch(0.3 0.08 195) 0%, oklch(0.24 0.07 195) 100%)'
-            : 'linear-gradient(180deg, oklch(0.26 0.07 195) 0%, oklch(0.22 0.06 195) 100%)',
+          background: hovered ? 'var(--folder-front-hover)' : 'var(--folder-front)',
           border: `1px solid ${hovered ? 'var(--interactive)' : 'oklch(from var(--interactive) l c h / 0.7)'}`,
           borderRadius: '2px 2px 4px 4px',
           transformOrigin: 'bottom center',

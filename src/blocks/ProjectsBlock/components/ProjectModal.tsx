@@ -79,8 +79,8 @@ export const ProjectModal: React.FC<{ project: Project | null; onClose: () => vo
                 background: phase === 'pulse' ? 'var(--primary)' : 'var(--background)',
                 boxShadow:
                   phase === 'pulse'
-                    ? '0 0 40px oklch(1 0 0 / 0.45), 0 0 80px oklch(1 0 0 / 0.18)'
-                    : '0 0 80px oklch(0 0 0 / 0.5), 0 0 30px oklch(1 0 0 / 0.12)',
+                    ? '0 0 40px oklch(from var(--primary) l c h / 0.45), 0 0 80px oklch(from var(--primary) l c h / 0.18)'
+                    : '0 0 80px oklch(0 0 0 / 0.5), 0 0 30px oklch(from var(--primary) l c h / 0.12)',
               }}
               initial={{
                 width: 16,

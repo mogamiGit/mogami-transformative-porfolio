@@ -22,7 +22,8 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('w-auto h-[34px]', className)}
+      // The SVG is drawn in white, so it is inverted on the light theme
+      className={clsx('w-auto h-[34px] invert dark:invert-0', className)}
       src="/logo.svg"
     />
   )
