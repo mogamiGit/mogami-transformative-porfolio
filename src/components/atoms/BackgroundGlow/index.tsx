@@ -23,6 +23,7 @@ const fragmentShader = `
 
   uniform float uTime;
   uniform vec2 uMouse;
+  uniform float uLight;
   varying vec2 vUv;
 
   float random(vec2 st) {
@@ -62,17 +63,20 @@ const fragmentShader = `
     float n2 = fbm(uv * 1.4 - movement + n1);
     float intensity = fbm(uv + n2 * 3.5 + uTime * 0.1);
 
-    vec3 colorVoid      = vec3(0.02, 0.02, 0.02);
-    vec3 colorDeep      = vec3(0.03, 0.07, 0.07);
-    vec3 colorPrimary   = vec3(0.04, 0.18, 0.17);
-    vec3 colorHighlight = vec3(0.08, 0.28, 0.26);
+    // Each stop blends between its dark and light theme value. The light ramp
+    // is neutral grey: a tint this pale would not read as texture on white.
+    vec3 colorVoid      = mix(vec3(0.02, 0.02, 0.02), vec3(0.94), uLight);
+    vec3 colorDeep      = mix(vec3(0.03, 0.07, 0.07), vec3(0.88), uLight);
+    vec3 colorPrimary   = mix(vec3(0.04, 0.18, 0.17), vec3(0.78), uLight);
+    vec3 colorHighlight = mix(vec3(0.08, 0.28, 0.26), vec3(0.62), uLight);
 
     vec3 color = mix(colorVoid, colorDeep, smoothstep(0.0, 0.4, intensity));
     color = mix(color, colorPrimary, smoothstep(0.3, 0.7, intensity));
     color = mix(color, colorHighlight, smoothstep(0.6, 1.0, intensity));
 
+    // The vignette darkens the corners, which would grey out the white
     float vignette = 1.0 - length(vUv - 0.5) * 1.5;
-    color *= clamp(vignette + 0.5, 0.0, 1.0);
+    color *= mix(clamp(vignette + 0.5, 0.0, 1.0), 1.0, uLight);
 
     gl_FragColor = vec4(color, 1.0);
   }
@@ -145,8 +149,9 @@ function initGL(canvas: HTMLCanvasElement) {
 
   const uTime = gl.getUniformLocation(program, 'uTime')
   const uMouse = gl.getUniformLocation(program, 'uMouse')
+  const uLight = gl.getUniformLocation(program, 'uLight')
 
-  return { gl, uTime, uMouse }
+  return { gl, uTime, uMouse, uLight }
 }
 
 export const BackgroundGlow: React.FC = () => {
@@ -160,6 +165,16 @@ export const BackgroundGlow: React.FC = () => {
 
     let rafId = 0
     let disposed = false
+
+    // Rendered outside the theme provider, so the theme is read off <html>.
+    const root = document.documentElement
+    const isLight = () => root.getAttribute('data-theme') === 'light'
+    let targetLight = isLight() ? 1 : 0
+    let light = targetLight
+    const themeObserver = new MutationObserver(() => {
+      targetLight = isLight() ? 1 : 0
+    })
+    themeObserver.observe(root, { attributes: true, attributeFilter: ['data-theme'] })
 
     const resize = () => {
       // Match the backing store to the device pixel ratio, otherwise the noise
@@ -184,7 +199,7 @@ export const BackgroundGlow: React.FC = () => {
       const ctx = initGL(canvas)
       if (!ctx) return
 
-      const { gl, uTime, uMouse } = ctx
+      const { gl, uTime, uMouse, uLight } = ctx
       const startedAt = performance.now()
 
       const render = () => {
@@ -197,6 +212,10 @@ export const BackgroundGlow: React.FC = () => {
         gl.viewport(0, 0, canvas.width, canvas.height)
         gl.uniform1f(uTime, t)
         gl.uniform2f(uMouse, mouseRef.current.x, mouseRef.current.y)
+
+        // Lerp theme, so toggling crossfades instead of snapping
+        light += (targetLight - light) * 0.08
+        gl.uniform1f(uLight, light)
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
 
         rafId = requestAnimationFrame(render)
@@ -222,6 +241,7 @@ export const BackgroundGlow: React.FC = () => {
     return () => {
       disposed = true
       cancelAnimationFrame(rafId)
+      themeObserver.disconnect()
       canvas.removeEventListener('webglcontextlost', onContextLost)
       canvas.removeEventListener('webglcontextrestored', onContextRestored)
       window.removeEventListener('resize', resize)
@@ -233,11 +253,8 @@ export const BackgroundGlow: React.FC = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="fixed inset-0 -z-10 pointer-events-none block w-full h-full"
-      style={{
-        // Visible if WebGL never initialises, hidden behind the canvas otherwise.
-        background: 'radial-gradient(circle at 50% 40%, #0a2422 0%, #050505 100%)',
-      }}
+      // The background is visible if WebGL never initialises, hidden behind the canvas otherwise.
+      className="fixed inset-0 -z-10 pointer-events-none block w-full h-full bg-white dark:bg-[radial-gradient(circle_at_50%_40%,#0a2422_0%,#050505_100%)]"
     />
   )
 }
