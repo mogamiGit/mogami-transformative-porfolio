@@ -1,8 +1,14 @@
 {
   "name": "mogami-transformative-portfolio",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
   "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "mounts": [
+    "source=devcontainer-node-modules,target=/workspace/node_modules,type=volume"
+  ],
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
@@ -35,5 +41,12 @@
   "remoteEnv": {
     "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
   },
-  "shutdownAction": "stopCompose"
+  "runArgs": [
+    "--name", "mogami-portfolio",
+    "--env-file", "${localWorkspaceFolder}/.env",
+    "--shm-size=1gb",
+    "--cpus=1.5",
+    "--memory=4g"
+  ],
+  "shutdownAction": "stopContainer"
 }
