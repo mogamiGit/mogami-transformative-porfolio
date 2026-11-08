@@ -85,13 +85,14 @@ const Timeline: React.FC<{
   }, [isAnimating, count, wrapPhase, hovered])
 
   /** Reset to first item when hover ends. */
-  useEffect(() => {
-    if (hovered || !isAnimating) return
+  const handleMouseLeave = useCallback(() => {
+    setHovered(false)
+    if (!isAnimating) return
     setActiveIndex(0)
     setWrapPhase('none')
     const el = itemRefs.current[0]
     if (el) setScrollY(-el.offsetTop)
-  }, [hovered, isAnimating])
+  }, [isAnimating])
 
   /** Report max item height so parent can unify viewport across timelines. */
   useLayoutEffect(() => {
@@ -126,7 +127,7 @@ const Timeline: React.FC<{
     <Card
       className="gap-6 p-6 md:p-8"
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="flex items-baseline justify-between gap-4 pb-3 border-b border-dashed border-card-border">
         <span className="type-command text-card-foreground">
@@ -248,7 +249,7 @@ export const ExperienceCardList: React.FC<Props> = ({ label, title, items }) => 
     if (maxItemHRef.current > 0) {
       setViewportH(Math.round(maxItemHRef.current * 1.6 + 32))
     }
-  })
+  }, [items])
 
   if (items.length === 0) return null
 
