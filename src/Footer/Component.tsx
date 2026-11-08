@@ -29,6 +29,11 @@ export async function Footer() {
           </nav>
         </div>
       </div>
+      <div className="container pb-8">
+        <p className="text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} Monica Galán de la Llana. All rights reserved.
+        </p>
+      </div>
     </footer>
   )
 }
