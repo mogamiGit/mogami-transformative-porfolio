@@ -16,7 +16,7 @@ export type HighlightCardProps = {
 }
 
 const figureClassName =
-  'type-figure text-primary text-xl sm:text-2xl lg:text-3xl m-0 break-words min-w-0'
+  'type-figure text-primary text-lg sm:text-xl lg:text-2xl m-0 break-words min-w-0'
 
 /**
  * One highlight point as a bordered card.

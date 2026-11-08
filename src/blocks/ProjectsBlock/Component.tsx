@@ -21,7 +21,7 @@ export const ProjectsBlockComponent: React.FC<ProjectsBlockType> = async ({
   })
 
   return (
-    <section id="projects" className="container py-16 px-8 border-b border-border">
+    <section id="projects" className="container py-16 px-8">
       <SectionHeader
         title={sectionTitle || 'projects'}
         aside={`ls ./projects · ${projects.length} entries`}
