@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 import { MotionConfig, motion, useInView, useReducedMotion, type Variants } from 'motion/react'
 import type { Experience } from '@/payload-types'
 import { Card } from '@/components/atoms/Card'
-import { SectionHeader } from '@/components/molecules/SectionHeader'
+import { AnimatedSectionHeader } from '@/components/molecules/AnimatedSectionHeader'
 import { TypedText } from '@/components/atoms/TypedText/TypedText.client'
 import { cn } from '@/utilities/ui'
 
@@ -258,7 +258,7 @@ export const ExperienceCardList: React.FC<Props> = ({ label, title, items }) => 
   return (
     <MotionConfig reducedMotion="user">
       <section id="experience" className="container py-16">
-        <SectionHeader label={label} title={title} />
+        <AnimatedSectionHeader label={label} title={title} />
 
         <div
           className={cn(

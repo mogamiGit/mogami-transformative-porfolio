@@ -3,9 +3,31 @@
 import React, { useState, useCallback } from 'react'
 import type { Project } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { MotionConfig, motion, type Variants } from 'motion/react'
+import { EASE_OUT_EXPO } from '@/utilities/motion'
 import { FolderIcon } from './components/FolderIcon'
 import { ProjectModal } from './components/ProjectModal'
 import { ViewToggle } from '@/components/organisms/ViewToggle'
+
+const gridContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04, delayChildren: 0.1 } },
+}
+
+const gridItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_OUT_EXPO } },
+}
+
+const listContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.03 } },
+}
+
+const listItem: Variants = {
+  hidden: { opacity: 0, x: -12 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: 'easeOut' } },
+}
 
 type Props = {
   projects: Project[]
@@ -19,16 +41,24 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
   const handleClose = useCallback(() => setOpenProject(null), [])
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
+      <>
       <div className="flex items-end justify-end gap-6 mb-6 flex-wrap">
         <ViewToggle view={view} onViewChange={setView} command="$ ls ~/mogami/projects" />
       </div>
 
-      <div key={view} className="animate-in fade-in duration-200">
+      <div key={view}>
         {view === 'grid' && (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-1 pt-10">
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-1 pt-10"
+            variants={gridContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
             {projects.map((p) => (
-              <button
+              <motion.button
+                variants={gridItem}
                 key={p.id}
                 onClick={() => setOpenProject(p)}
                 onMouseEnter={() => setHovered(p.id)}
@@ -58,13 +88,19 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
                   {'$ open ./'}
                   {p.slug ?? p.title.toLowerCase().replace(/\s+/g, '-')}
                 </div>
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
         )}
 
         {view === 'list' && (
-          <div className="border border-border font-mono">
+          <motion.div
+            className="border border-border font-mono"
+            variants={listContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
             <div
               className="grid gap-3 px-4 py-2 border-b border-border bg-foreground/8 type-label text-card-foreground opacity-50 tracking-widest uppercase"
               style={{
@@ -79,7 +115,8 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
               <span />
             </div>
             {projects.map((p) => (
-              <button
+              <motion.button
+                variants={listItem}
                 key={p.id}
                 onClick={() => setOpenProject(p)}
                 onMouseEnter={() => setHovered(p.id)}
@@ -121,14 +158,15 @@ export const ProjectsGrid: React.FC<Props> = ({ projects }) => {
                 >
                   →
                 </span>
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
       {/* end animate wrapper */}
 
       <ProjectModal project={openProject} onClose={handleClose} />
-    </>
+      </>
+    </MotionConfig>
   )
 }

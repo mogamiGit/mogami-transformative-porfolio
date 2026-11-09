@@ -2,7 +2,7 @@ import React from 'react'
 
 import type { HighlightPointsBlockType } from '@/payload-types'
 import { HighlightCard } from '@/components/molecules/HighlightCard'
-import { SectionHeader } from '@/components/molecules/SectionHeader'
+import { AnimatedSectionHeader } from '@/components/molecules/AnimatedSectionHeader'
 import { cn } from '@/utilities/ui'
 
 /**
@@ -35,7 +35,7 @@ export const HighlightPointsBlockComponent: React.FC<HighlightPointsBlockType> =
 
   return (
     <section className="container">
-      <SectionHeader label={label} title={title} />
+      <AnimatedSectionHeader label={label} title={title} />
 
       <dl className={cn('grid gap-8 m-0', columnClassFor(points.length))}>
         {points.map((point, index) => (

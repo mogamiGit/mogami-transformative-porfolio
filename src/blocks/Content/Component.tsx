@@ -5,6 +5,7 @@ import RichText from '@/components/organisms/RichText'
 import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
 import { CMSLink } from '@/components/molecules/Link'
+import { ScrollReveal } from '@/components/atoms/ScrollReveal/ScrollReveal.client'
 
 export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   const { columns } = props
@@ -25,16 +26,18 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
             const { enableLink, link, richText, size } = col
 
             return (
-              <div
+              <ScrollReveal
                 className={cn(`col-span-4 lg:col-span-${colsSpanClasses[size!]}`, {
                   'md:col-span-2': size !== 'full',
                 })}
                 key={index}
+                from="up"
+                distance={20}
               >
                 {richText && <RichText data={richText} enableGutter={false} />}
 
                 {enableLink && <CMSLink {...link} />}
-              </div>
+              </ScrollReveal>
             )
           })}
       </div>

@@ -4,7 +4,7 @@ import type { AboutBlockType } from '@/payload-types'
 
 import { Card } from '@/components/atoms/Card'
 import { TypedText } from '@/components/atoms/TypedText/TypedText.client'
-import { SectionHeader } from '@/components/molecules/SectionHeader'
+import { AnimatedSectionHeader } from '@/components/molecules/AnimatedSectionHeader'
 import RichText from '@/components/organisms/RichText'
 import { cn } from '@/utilities/ui'
 import { MantraLoop } from './Component.client'
@@ -15,7 +15,7 @@ export const AboutBlockComponent: React.FC<AboutBlockType> = ({ sectionTitle, bi
 
   return (
     <section id="about" className="container py-16">
-      <SectionHeader title={sectionTitle} />
+      <AnimatedSectionHeader title={sectionTitle} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5">
         {bio && (

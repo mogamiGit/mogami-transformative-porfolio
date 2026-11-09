@@ -1,7 +1,7 @@
 import React from 'react'
 import { getPayloadClient } from '@/utilities/getPayloadClient'
 import type { ProjectsBlockType } from '@/payload-types'
-import { SectionHeader } from '@/components/molecules/SectionHeader'
+import { AnimatedSectionHeader } from '@/components/molecules/AnimatedSectionHeader'
 import { ProjectsGrid } from './Component.client'
 
 export const ProjectsBlockComponent: React.FC<ProjectsBlockType> = async ({
@@ -22,7 +22,7 @@ export const ProjectsBlockComponent: React.FC<ProjectsBlockType> = async ({
 
   return (
     <section id="projects" className="container py-16 px-8">
-      <SectionHeader
+      <AnimatedSectionHeader
         title={sectionTitle || 'projects'}
         aside={`ls ./projects · ${projects.length} entries`}
       />

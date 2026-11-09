@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Card, CardTitle } from '@/components/atoms/Card'
-import { SectionHeader } from '@/components/molecules/SectionHeader'
+import { AnimatedSectionHeader } from '@/components/molecules/AnimatedSectionHeader'
 import { CountUp } from '@/components/atoms/CountUp/CountUp.client'
 import { RadarChart } from './components/RadarChart.client'
 import { HeatmapChart } from './components/HeatmapChart.client'
@@ -57,7 +57,7 @@ export const GitHubStatsClient: React.FC<Props> = ({
 
   return (
     <section className="container flex flex-col gap-4">
-      <SectionHeader label={label} title={title ?? 'github.stats'} className="mb-4" />
+      <AnimatedSectionHeader label={label} title={title ?? 'github.stats'} className="mb-4" />
       <div className="grid grid-cols-4 gap-3.5">
         {chartData.length > 0 && (
           <Card className="col-span-4 row-span-1 md:col-span-2 md:row-span-4">
